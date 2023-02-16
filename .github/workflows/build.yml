@@ -5,9 +5,21 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: configure git
+        run: |
+          git config --global user.name "SichangHe"
+          git config --global user.email "sichanghe@users.noreply.github.com"
       - uses: actions/setup-node@v3.6.0
       - run: npm i
       - run: npm run deploy
-      - uses: actions/upload-pages-artifact@v1.0.7
-        with:
-          path: "build"
+      - name: push
+        run: |
+          git fetch
+          git switch gh-pages
+          rm -rf docs
+          mv build docs
+          git add docs
+          git commit --allow-empty -m "Deploy $GITHUB_SHA to gh-pages"
+          git push -f
