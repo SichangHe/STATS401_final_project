@@ -8,7 +8,9 @@
 	const min_mag = quakes[0].mag;
 	const max_mag = quakes[quakes.length - 1].mag;
 	const mag_diff = max_mag - min_mag;
-	const normalize_mag = (mag: number) => (min_mag - mag) / mag_diff;
+	const normalize_offset = 1 / 6;
+	const normalize_mag = (mag: number) =>
+		((min_mag - mag) / mag_diff) * normalize_offset + normalize_offset;
 
 	const width = 1000;
 	const height = 600;
@@ -44,7 +46,10 @@
 			.attr('cy', (d) => projection([d.longitude, d.latitude])[1])
 			.attr('r', 3)
 			.style('fill', (d) => `hsl(${normalize_mag(d.mag)}turn 100% 50%)`)
-			.style('opacity', 0.6);
+			.style('stroke', (d) => `hsl(${normalize_mag(d.mag)}turn 100% 50%)`)
+			.style('stroke-width', 0.7)
+			.attr('fill-opacity', 0.5)
+			.style('opacity', 0.8);
 	});
 </script>
 
