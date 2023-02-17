@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
-	import * as cloud from 'd3-cloud';
+	import cloud from 'd3-cloud';
 
 	// List of words
 	const words = [
-		{ text: 'Running', size: '10' },
-		{ text: 'Surfing', size: '20' },
-		{ text: 'Climbing', size: '50' },
-		{ text: 'Kiting', size: '30' },
-		{ text: 'Sailing', size: '20' },
-		{ text: 'Snowboarding', size: '60' }
+		{ text: 'Running', size: 10 },
+		{ text: 'Surfing', size: 20 },
+		{ text: 'Climbing', size: 50 },
+		{ text: 'Kiting', size: 30 },
+		{ text: 'Sailing', size: 20 },
+		{ text: 'Snowboarding', size: 60 }
 	];
 
 	// set the dimensions and margins of the graph
