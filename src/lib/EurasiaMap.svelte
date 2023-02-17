@@ -5,6 +5,7 @@
 
 	const width = 1000;
 	const height = 600;
+	const countries = ['Turkey', 'Syria'];
 
 	let svg_node: SVGSVGElement;
 
@@ -20,7 +21,7 @@
 			.selectAll('path')
 			.data(features)
 			.join('path')
-			.attr('fill', '#69b3a2')
+			.attr('fill', (d) => (countries.includes(d.properties.name_en) ? '#02aac4' : '#69b3a2'))
 			.attr('d', d3.geoPath().projection(projection))
 			.style('stroke', '#fff');
 	});
