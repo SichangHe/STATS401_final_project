@@ -2,16 +2,28 @@
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
 	import cloud from 'd3-cloud';
+	import { data } from '$lib/date_w_tokens.json';
 
-	// List of words
-	const words = [
-		{ text: 'Running', size: 10 },
-		{ text: 'Surfing', size: 20 },
-		{ text: 'Climbing', size: 50 },
-		{ text: 'Kiting', size: 30 },
-		{ text: 'Sailing', size: 20 },
-		{ text: 'Snowboarding', size: 60 }
-	];
+	const blacklist =
+		/(turkey)|(syria)|(earthquake)|(http)|(that)|(than)|(from)|(this)|(will)|(have)|(been)|(they)|(them)|(their)|(your)|(\[.*\])/i;
+
+	const count_data = (data) => {
+		let counts = new Map();
+		for (const d_w_t of data) {
+			for (const tk of d_w_t['Tokens']) {
+				counts.set(tk, (counts.get(tk) || 0) + 1);
+			}
+		}
+		const aggregated = [];
+		for (const [tk, cnt] of counts) {
+			if (tk.length < 4 || blacklist.test(tk)) {
+				continue;
+			}
+			aggregated.push({ text: tk, size: cnt });
+		}
+		aggregated.sort((a, b) => a.size < b.size);
+		return aggregated;
+	};
 
 	// set the dimensions and margins of the graph
 	const margin = { top: 10, right: 10, bottom: 10, left: 10 },
@@ -29,6 +41,9 @@
 			.append('g')
 			.attr('transform', `translate(${margin.left},${margin.top})`);
 
+		const words = count_data(data).slice(0, 50);
+		const scale_word = 64 / words[0].size;
+
 		// Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
 		// Wordcloud features that are different from one word to the other must be here
 		const layout = cloud()
@@ -36,7 +51,7 @@
 			.words(words)
 			.padding(5) //space between words
 			.rotate(() => ~~(Math.random() * 2) * 90)
-			.fontSize((d) => d.size) // font size of words
+			.fontSize((d) => d.size * scale_word) // font size of words
 			.on('end', draw);
 		layout.start();
 
