@@ -5,7 +5,7 @@
 	import { data } from '$lib/date_w_tokens.json';
 
 	const blacklist =
-		/(turkey)|(syria)|(earthquake)|(http)|(that)|(than)|(from)|(this)|(will)|(have)|(been)|(they)|(them)|(their)|(your)|(\[.*\])/i;
+		/^((turkey)|(turki)|(syria)|(earthqua)|(http).*)|(that)|(those)|(than)|(from)|(this)|(will)|(with)|(have)|(been)|(were)|(they)|(them)|(their)|(your)|(for)|(the)|(and)|(you)|(who)|(are)|(her)|(our)|(has)|(amp)|(his)|(not)|(but)|(was)|(000)|(can)|(tur)|(tra)|(what)|(\[.*\])$/i;
 
 	const count_data = (data) => {
 		let counts = new Map();
@@ -16,7 +16,7 @@
 		}
 		const aggregated = [];
 		for (const [tk, cnt] of counts) {
-			if (tk.length < 4 || blacklist.test(tk)) {
+			if (tk.length < 3 || blacklist.test(tk)) {
 				continue;
 			}
 			aggregated.push({ text: tk, size: cnt });
