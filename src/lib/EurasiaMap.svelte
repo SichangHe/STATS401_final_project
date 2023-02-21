@@ -5,6 +5,7 @@
 	import quakes from '$lib/eurasia_earthquakes.csv';
 
 	quakes.sort((a, b) => a.mag > b.mag);
+	quakes.forEach((d) => (d.time = new Date(d.time)));
 	const min_mag = quakes[0].mag;
 	const max_mag = quakes[quakes.length - 1].mag;
 	const mag_diff = max_mag - min_mag;
@@ -69,7 +70,7 @@
 				e.target.style.opacity = 1;
 				console.log(d);
 				tooltip.style.visibility = 'visible';
-				tooltip.innerText = `${d.mag}, ${d.time}`;
+				tooltip.innerText = `${d.mag}, ${d.time.toLocaleString()}`;
 			})
 			.on('mousemove', tooltip_follow)
 			.on('mouseout', (e) => (e.target.style.opacity = 0.8));
