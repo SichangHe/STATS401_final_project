@@ -21,13 +21,22 @@
 	let svg_node: SVGSVGElement;
 	let tooltip: HTMLElement;
 
+	const tooltip_follow = (e) => {
+		tooltip.style.left = `${e.pageX}px`;
+		tooltip.style.top = `${e.pageY - 50}px`;
+	};
+
 	const projection = d3
 		.geoNaturalEarth1()
 		.scale(width / 4)
 		.translate([width / 5, (2 * height) / 3]);
 
 	onMount(() => {
-		const svg = d3.select(svg_node).attr('width', width).attr('height', height);
+		const svg = d3
+			.select(svg_node)
+			.attr('width', width)
+			.attr('height', height)
+			.on('mouseout', () => (tooltip.style.visibility = 'hidden'));
 		svg
 			.append('g')
 			.selectAll('path')
@@ -42,10 +51,7 @@
 				tooltip.style.visibility = 'visible';
 				tooltip.innerText = d.properties.name_en;
 			})
-			.on('mousemove', (e) => {
-				tooltip.style.left = `${e.pageX}px`;
-				tooltip.style.top = `${e.pageY}px`;
-			});
+			.on('mousemove', tooltip_follow);
 
 		svg
 			.selectAll('circle')
@@ -58,7 +64,15 @@
 			.style('stroke', (d) => `hsl(${normalize_mag(d.mag)}turn 100% 50%)`)
 			.style('stroke-width', 0.7)
 			.attr('fill-opacity', 0.5)
-			.style('opacity', 0.8);
+			.style('opacity', 0.8)
+			.on('mouseover', (e, d) => {
+				e.target.style.opacity = 1;
+				console.log(d);
+				tooltip.style.visibility = 'visible';
+				tooltip.innerText = `${d.mag}, ${d.time}`;
+			})
+			.on('mousemove', tooltip_follow)
+			.on('mouseout', (e) => (e.target.style.opacity = 0.8));
 	});
 </script>
 
