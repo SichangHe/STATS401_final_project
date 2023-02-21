@@ -19,6 +19,7 @@
 	const pale_green_gray = 'hsl(120deg 10% 90%)';
 
 	let svg_node: SVGSVGElement;
+	let tooltip: HTMLElement;
 
 	const projection = d3
 		.geoNaturalEarth1()
@@ -36,7 +37,15 @@
 				countries.includes(d.properties.name_en) ? pale_red_gray : pale_green_gray
 			)
 			.attr('d', d3.geoPath().projection(projection))
-			.style('stroke', '#fff');
+			.style('stroke', '#fff')
+			.on('mouseover', (_, d) => {
+				tooltip.style.visibility = 'visible';
+				tooltip.innerText = d.properties.name_en;
+			})
+			.on('mousemove', (e) => {
+				tooltip.style.left = `${e.pageX}px`;
+				tooltip.style.top = `${e.pageY}px`;
+			});
 
 		svg
 			.selectAll('circle')
@@ -54,3 +63,11 @@
 </script>
 
 <svg bind:this={svg_node} />
+<div bind:this={tooltip} />
+
+<style>
+	div {
+		position: absolute;
+		visibility: hidden;
+	}
+</style>
