@@ -38,9 +38,8 @@
 			.attr('width', width)
 			.attr('height', height)
 			.on('mouseout', () => (tooltip.style.visibility = 'hidden'));
-		svg
-			.append('g')
-			.selectAll('path')
+		const g = svg.append('g');
+		g.selectAll('path')
 			.data(features)
 			.join('path')
 			.attr('fill', (d) =>
@@ -54,8 +53,10 @@
 			})
 			.on('mousemove', tooltip_follow);
 
-		svg
-			.selectAll('circle')
+		const zoom = d3.zoom().on('zoom', (e) => g.attr('transform', e.transform));
+		svg.call(zoom);
+
+		g.selectAll('circle')
 			.data(quakes)
 			.join('circle')
 			.attr('cx', (d) => projection([d.longitude, d.latitude])[0])
