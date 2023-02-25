@@ -28,12 +28,17 @@
 	const pale_green_gray = 'hsl(120deg 10% 90%)';
 
 	let svg_node: SVGSVGElement;
-	let tooltip: HTMLElement;
+	let tooltip = {
+		left: 0,
+		top: 0,
+		visible: false,
+		content: ''
+	};
 	let card: QuakeCard;
 
 	const tooltip_follow = (mouse_event: MouseEvent) => {
-		tooltip.style.left = `${mouse_event.pageX}px`;
-		tooltip.style.top = `${mouse_event.pageY - 50}px`;
+		tooltip.left = mouse_event.pageX;
+		tooltip.top = mouse_event.pageY - 50;
 	};
 	const card_follow = (mouse_event: any, quake: Quake) => {
 		const circle: HTMLElement = mouse_event.target;
@@ -50,7 +55,7 @@
 	};
 	const hide_card_tooltip = () => {
 		card.config({ visible: false });
-		tooltip.style.visibility = 'hidden';
+		tooltip.visible = false;
 	};
 
 	const projection = d3
@@ -91,8 +96,8 @@
 			.attr('d', d3.geoPath().projection(projection))
 			.style('stroke', '#fff')
 			.on('mouseover', (_, d) => {
-				tooltip.style.visibility = 'visible';
-				tooltip.innerText = d.properties.name_en;
+				tooltip.visible = true;
+				tooltip.content = d.properties.name_en;
 			})
 			.on('mousemove', tooltip_follow);
 
@@ -126,7 +131,13 @@
 		</linearGradient></defs
 	>
 </svg>
-<div bind:this={tooltip} />
+<div
+	style="left: {tooltip.left}px; top: {tooltip.top}px; visibility: {tooltip.visible
+		? 'visible'
+		: 'hidden'}"
+>
+	{tooltip.content}
+</div>
 <QuakeCard bind:this={card} />
 
 <style>

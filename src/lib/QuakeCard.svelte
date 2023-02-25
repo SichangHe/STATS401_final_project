@@ -9,7 +9,6 @@
 	};
 
 	let cfg: Config = {
-		time: '',
 		visible: false
 	};
 	export function config(config: Config) {
