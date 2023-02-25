@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
 	import { features } from '$lib/custom.geo.json';
+	import QuakeCard from '$lib/QuakeCard.svelte';
 	// @ts-ignore
 	import quakes from '$lib/eurasia_earthquakes.csv';
 
@@ -13,13 +14,12 @@
 	};
 	quakes.sort((a: Quake, b: Quake) => a.mag - b.mag);
 	quakes.forEach((d: any) => (d.time = new Date(d.time)));
-	console.log(quakes);
 	const min_mag = quakes[0].mag;
 	const max_mag = quakes[quakes.length - 1].mag;
 	const mag_diff = max_mag - min_mag;
 	const normalize_offset = 1 / 6;
-	const normalize_mag = (mag: number) =>
-		((min_mag - mag) / mag_diff) * normalize_offset + normalize_offset;
+	const mag_position = (mag: number) => (mag - min_mag) / mag_diff;
+	const normalize_mag = (mag: number) => -mag_position(mag) * normalize_offset + normalize_offset;
 
 	const width = 1000;
 	const height = 600;
@@ -29,10 +29,28 @@
 
 	let svg_node: SVGSVGElement;
 	let tooltip: HTMLElement;
+	let card: QuakeCard;
 
-	const tooltip_follow = (e: MouseEvent) => {
-		tooltip.style.left = `${e.pageX}px`;
-		tooltip.style.top = `${e.pageY - 50}px`;
+	const tooltip_follow = (mouse_event: MouseEvent) => {
+		tooltip.style.left = `${mouse_event.pageX}px`;
+		tooltip.style.top = `${mouse_event.pageY - 50}px`;
+	};
+	const card_follow = (mouse_event: any, quake: Quake) => {
+		const circle: HTMLElement = mouse_event.target;
+		circle.style.opacity = '1';
+		console.log(quake);
+		card.config({
+			visible: true,
+			title: quake.mag.toString(),
+			time: quake.time.toLocaleString(),
+			left: mouse_event.pageX,
+			top: mouse_event.pageY + 50,
+			fill: circle.style.fill
+		});
+	};
+	const hide_card_tooltip = () => {
+		card.config({ visible: false });
+		tooltip.style.visibility = 'hidden';
 	};
 
 	const projection = d3
@@ -45,7 +63,7 @@
 			.select(svg_node)
 			.attr('width', width)
 			.attr('height', height)
-			.on('mouseout', () => (tooltip.style.visibility = 'hidden'));
+			.on('mouseout', hide_card_tooltip);
 		const g = svg.append('g');
 		g.selectAll('path')
 			.data(features)
@@ -77,12 +95,8 @@
 			.style('stroke-width', 0.7)
 			.attr('fill-opacity', 0.5)
 			.style('opacity', 0.8)
-			.on('mouseover', (e, d: any) => {
-				e.target.style.opacity = 1;
-				console.log(d);
-				tooltip.style.visibility = 'visible';
-				tooltip.innerText = `${d.mag}, ${d.time.toLocaleString()}`;
-			})
+			// @ts-ignore
+			.on('mouseover', card_follow)
 			.on('mousemove', tooltip_follow)
 			.on('mouseout', (e) => (e.target.style.opacity = 0.8));
 	});
@@ -90,6 +104,7 @@
 
 <svg bind:this={svg_node} />
 <div bind:this={tooltip} />
+<QuakeCard bind:this={card} />
 
 <style>
 	div {
