@@ -58,6 +58,12 @@
 		.scale(width / 4)
 		.translate([width / 5, (2 * height) / 3]);
 
+	const color_scale = d3
+		.scaleLinear()
+		.domain([min_mag, max_mag])
+		.range([0, width / 2]);
+	const color_axis = d3.axisBottom(color_scale);
+
 	onMount(() => {
 		const svg = d3
 			.select(svg_node)
@@ -65,6 +71,16 @@
 			.attr('height', height)
 			.on('mouseout', hide_card_tooltip);
 		const g = svg.append('g');
+		svg
+			.append('g')
+			.attr('style', `transform: translate(80%, ${height - 50}px)`)
+			.call(color_axis)
+			.append('rect')
+			.attr('height', 6)
+			.attr('width', width / 2)
+			.style('opacity', 0.8)
+			.attr('fill', 'url(#eurasia-map-yellow-red-linear-gradient)');
+
 		g.selectAll('path')
 			.data(features)
 			.join('path')
@@ -102,7 +118,14 @@
 	});
 </script>
 
-<svg bind:this={svg_node} />
+<svg bind:this={svg_node}>
+	<defs>
+		<linearGradient id="eurasia-map-yellow-red-linear-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+			<stop offset="0%" style="stop-color: hsl({normalize_mag(min_mag)}turn 100% 50%)" />
+			<stop offset="100%" style="stop-color: hsl({normalize_mag(max_mag)}turn 100% 50%)" />
+		</linearGradient></defs
+	>
+</svg>
 <div bind:this={tooltip} />
 <QuakeCard bind:this={card} />
 
