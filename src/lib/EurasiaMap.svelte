@@ -24,8 +24,8 @@
 	const width = 1000;
 	const height = 600;
 	const countries = ['Turkey', 'Syria'];
-	const pale_red_gray = 'hsl(0 10% 95%)';
-	const pale_green_gray = 'hsl(120deg 10% 95%)';
+	const pale_red_gray = 'hsl(0 30% 10%)';
+	const pale_green_gray = 'hsl(120deg 10% 10%)';
 
 	let svg_node: SVGSVGElement;
 	let tooltip = {
@@ -38,7 +38,7 @@
 
 	const tooltip_follow = (mouse_event: MouseEvent) => {
 		tooltip.left = mouse_event.pageX;
-		tooltip.top = mouse_event.pageY - 50;
+		tooltip.top = mouse_event.pageY + 50;
 	};
 	const card_follow = (mouse_event: any, quake: Quake) => {
 		const circle: HTMLElement = mouse_event.target;
@@ -79,6 +79,7 @@
 		svg
 			.append('g')
 			.attr('style', `transform: translate(80%, ${height - 50}px)`)
+			.attr('class', 'axis')
 			.call(color_axis)
 			.append('rect')
 			.attr('height', 6)
@@ -94,7 +95,7 @@
 			)
 			// @ts-ignore
 			.attr('d', d3.geoPath().projection(projection))
-			.style('stroke', '#fff')
+			.style('stroke', 'hsl(300deg, 10%, 30%)')
 			.on('mouseover', (_, d) => {
 				tooltip.visible = true;
 				tooltip.content = d.properties.name_en;
@@ -103,7 +104,7 @@
 
 		const zoom = d3
 			.zoom()
-			.scaleExtent([1, 10])
+			.scaleExtent([1, 5])
 			.translateExtent([
 				[0, 0],
 				[width, height]
@@ -143,17 +144,22 @@
 		? 'visible'
 		: 'hidden'}"
 >
-	{tooltip.content}
+	<b> {tooltip.content} </b>
 </div>
 <QuakeCard bind:this={card} />
 
 <style>
 	div {
+		color: white;
 		position: absolute;
 		visibility: hidden;
+		-webkit-text-stroke: 0.2px black;
 	}
 	svg {
 		/* Dim blue. */
-		background-color: hsl(200deg 10% 90%);
+		background-color: hsl(200deg 10% 20%);
+	}
+	:global(.axis text) {
+		fill: white;
 	}
 </style>
