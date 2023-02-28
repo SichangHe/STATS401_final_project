@@ -2,7 +2,7 @@
 	import Vis from '$lib/Vis.svelte';
 	import EurasiaMap from '$lib/EurasiaMap.svelte';
 	import WordCloud from '$lib/WordCloud.svelte';
-	import SentimentAnalysis from '$lib/SentimentAnalysis.svelte'
+	import SentimentAnalysis from '$lib/SentimentAnalysis.svelte';
 	import FrequencyMagnitudeHistogram from '../lib/FrequencyMagnitudeHistogram.svelte';
 	import Frequency from '$lib/Frequency.svelte';
 </script>
