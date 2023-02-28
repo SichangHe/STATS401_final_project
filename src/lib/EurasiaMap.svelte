@@ -24,8 +24,8 @@
 	const width = 1000;
 	const height = 600;
 	const countries = ['Turkey', 'Syria'];
-	const pale_red_gray = 'hsl(0 10% 90%)';
-	const pale_green_gray = 'hsl(120deg 10% 90%)';
+	const pale_red_gray = 'hsl(0 10% 95%)';
+	const pale_green_gray = 'hsl(120deg 10% 95%)';
 
 	let svg_node: SVGSVGElement;
 	let tooltip = {
@@ -60,8 +60,8 @@
 
 	const projection = d3
 		.geoNaturalEarth1()
-		.scale(width / 4)
-		.translate([width / 5, (2 * height) / 3]);
+		.scale(width / 2)
+		.translate([width / 4, height]);
 
 	const color_scale = d3
 		.scaleLinear()
@@ -151,5 +151,9 @@
 	div {
 		position: absolute;
 		visibility: hidden;
+	}
+	svg {
+		/* Dim blue. */
+		background-color: hsl(200deg 10% 90%);
 	}
 </style>
