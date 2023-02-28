@@ -101,7 +101,14 @@
 			})
 			.on('mousemove', tooltip_follow);
 
-		const zoom = d3.zoom().on('zoom', (e) => g.attr('transform', e.transform));
+		const zoom = d3
+			.zoom()
+			.scaleExtent([1, 10])
+			.translateExtent([
+				[0, 0],
+				[width, height]
+			])
+			.on('zoom', (e) => g.attr('transform', e.transform));
 		// @ts-ignore
 		svg.call(zoom);
 
