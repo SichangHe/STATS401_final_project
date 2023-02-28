@@ -4,6 +4,7 @@
 	import WordCloud from '$lib/WordCloud.svelte';
 	import SentimentAnalysis from '$lib/SentimentAnalysis.svelte'
 	import FrequencyMagnitudeHistogram from '../lib/FrequencyMagnitudeHistogram.svelte';
+	import Frequency from '$lib/Frequency.svelte';
 </script>
 
 <h1>Welcome to SvelteKit</h1>
@@ -18,3 +19,5 @@
 <SentimentAnalysis />
 <p>Frequence Magnitude Histogram:</p>
 <FrequencyMagnitudeHistogram />
+<p>frequency</p>
+<Frequency />
