@@ -1,5 +1,4 @@
 <script>
-	import Vis from '$lib/Vis.svelte';
 	import EurasiaMap from '$lib/EurasiaMap.svelte';
 	import WordCloud from '$lib/WordCloud.svelte';
 	import SentimentAnalysis from '$lib/SentimentAnalysis.svelte';
@@ -7,13 +6,10 @@
 	import Frequency from '$lib/Frequency.svelte';
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-<p>Demo vis:</p>
-<Vis />
-<p>Demo Eurasia map:</p>
+<h1>Analysis of 2023 Turkey-Syria Earthquake</h1>
+<p>Earthquake distribution map of earthquakes from 2000 to 2023 around the Turkey-Syria region.</p>
 <EurasiaMap />
-<p>Demo word cloud:</p>
+<p>Word cloud of Tweets.</p>
 <WordCloud />
 <p>Demo sentiment analysis:</p>
 <SentimentAnalysis />
