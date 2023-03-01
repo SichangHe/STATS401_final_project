@@ -5,6 +5,8 @@
 	import FrequencyMagnitudeHistogram from '../lib/FrequencyMagnitudeHistogram.svelte';
 	import Frequency from '$lib/Frequency.svelte';
 
+	import { base } from '$app/paths';
+
 	const h2 = 250;
 	const w2 = 350;
 </script>
@@ -12,7 +14,7 @@
 <article class="flex-column justify-center">
 	<div class="flex-row justify-between">
 		<h1>Analysis of 2023 Turkey-Syria Earthquake</h1>
-		<img src="qr_code.svg" alt="QR code to this webpage." />
+		<img src="{base}/qr_code.svg" alt="QR code to this webpage." />
 	</div>
 
 	<div class="flex-item">
@@ -36,7 +38,6 @@
 			<p>Frequence Magnitude Histogram:</p>
 			<FrequencyMagnitudeHistogram height={h2} width={w2} />
 		</div>
-		<div class="flex-item" />
 		<div class="flex-item">
 			<p>frequency</p>
 			<Frequency height={h2} width={w2} />
