@@ -5,8 +5,8 @@
 	import data from '$lib/sentiment.csv';
 
 	let svg_node: SVGSVGElement;
-	let width = 900;
-	let height = 400;
+	let width = 350;
+	let height = 250;
 	const barWidth = 30;
 
 	const margin = { top: 20, right: 10, bottom: 20, left: 10 };

@@ -4,8 +4,8 @@
 	import { features } from '$lib/custom.geo.json';
 	import quakes from '$lib/earthquake.csv';
 	var margin = { top: 10, right: 20, bottom: 30, left: 40 },
-		width = 460 - margin.left - margin.right,
-		height = 500 - margin.top - margin.bottom;
+		width = 350 - margin.left - margin.right,
+		height = 250 - margin.top - margin.bottom;
 
 	let svg_node;
 	onMount(() => {

@@ -6,8 +6,9 @@
 	import Frequency from '$lib/Frequency.svelte';
 </script>
 
-<h1>Analysis of 2023 Turkey-Syria Earthquake</h1>
-<div class="flex-column justify-center">
+<article class="flex-column justify-center">
+	<h1>Analysis of 2023 Turkey-Syria Earthquake</h1>
+
 	<div class="flex-item">
 		<p>
 			Earthquake distribution map of earthquakes from 2000 to 2023 around the Turkey-Syria region.
@@ -35,9 +36,17 @@
 			<Frequency />
 		</div>
 	</div>
-</div>
+</article>
 
 <style>
+	article {
+		border-color: lightgray;
+		border-style: solid;
+		border-width: 2px;
+		min-height: 29.7cm;
+		width: 21cm;
+	}
+
 	.flex-column {
 		display: flex;
 		flex-direction: column;

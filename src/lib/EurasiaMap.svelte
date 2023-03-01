@@ -21,8 +21,8 @@
 	const mag_position = (mag: number) => (mag - min_mag) / mag_diff;
 	const normalize_mag = (mag: number) => -mag_position(mag) * normalize_offset + normalize_offset;
 
-	const width = 1000;
-	const height = 600;
+	const width = 794;
+	const height = 280;
 	const countries = ['Turkey', 'Syria'];
 	const pale_red_gray = 'hsl(0 30% 10%)';
 	const pale_green_gray = 'hsl(120deg 10% 10%)';
@@ -60,8 +60,8 @@
 
 	const projection = d3
 		.geoNaturalEarth1()
-		.scale(width / 2)
-		.translate([width / 4, height]);
+		.scale((width * 3) / 4)
+		.translate([width / 5, height * 1.9]);
 
 	const color_scale = d3
 		.scaleLinear()
@@ -78,7 +78,7 @@
 		const g = svg.append('g');
 		svg
 			.append('g')
-			.attr('style', `transform: translate(80%, ${height - 50}px)`)
+			.attr('style', `transform: translate(20px, ${height - 30}px)`)
 			.attr('class', 'axis')
 			.call(color_axis)
 			.append('rect')
@@ -104,7 +104,7 @@
 
 		const zoom = d3
 			.zoom()
-			.scaleExtent([1, 5])
+			.scaleExtent([0.5, 5])
 			.translateExtent([
 				[0, 0],
 				[width, height]

@@ -27,8 +27,8 @@
 
 	// set the dimensions and margins of the graph
 	const margin = { top: 10, right: 10, bottom: 10, left: 10 },
-		width = 450 - margin.left - margin.right,
-		height = 450 - margin.top - margin.bottom;
+		width = 350 - margin.left - margin.right,
+		height = 250 - margin.top - margin.bottom;
 
 	let svg_node: SVGSVGElement;
 
