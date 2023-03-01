@@ -33,7 +33,7 @@
 
 	onMount(() => {
 		// append the svg object to the body of the page
-		const svg = d3.select(svg_node).attr('width', width).attr('height', height).append('g');
+		const svg = d3.select(svg_node).append('g');
 
 		const words = count_data(data).slice(0, 50);
 		const scale_word = 64 / words[0].size;
@@ -69,4 +69,4 @@
 	});
 </script>
 
-<svg bind:this={svg_node} />
+<svg bind:this={svg_node} {height} {width} />

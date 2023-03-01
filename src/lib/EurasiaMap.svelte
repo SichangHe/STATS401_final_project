@@ -70,11 +70,7 @@
 	const color_axis = d3.axisBottom(color_scale);
 
 	onMount(() => {
-		const svg = d3
-			.select(svg_node)
-			.attr('width', width)
-			.attr('height', height)
-			.on('mouseout', hide_card_tooltip);
+		const svg = d3.select(svg_node).on('mouseout', hide_card_tooltip);
 		const g = svg.append('g');
 		svg
 			.append('g')
@@ -131,7 +127,7 @@
 	});
 </script>
 
-<svg bind:this={svg_node}>
+<svg bind:this={svg_node} {height} {width}>
 	<defs>
 		<linearGradient id="eurasia-map-yellow-red-linear-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
 			<stop offset="0%" style="stop-color: hsl({normalize_mag(min_mag)}turn 100% 50%)" />

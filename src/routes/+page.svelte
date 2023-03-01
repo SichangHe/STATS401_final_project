@@ -23,7 +23,7 @@
 		</p>
 		<EurasiaMap />
 	</div>
-	<div class="flex-row justify-center">
+	<div class="flex-row justify-between">
 		<div class="flex-item">
 			<p>Word cloud of Tweets.</p>
 			<WordCloud height={h2} width={w2} />
@@ -33,7 +33,7 @@
 			<SentimentAnalysis height={h2} width={w2} />
 		</div>
 	</div>
-	<div class="flex-row justify-center">
+	<div class="flex-row justify-between">
 		<div class="flex-item">
 			<p>Frequence Magnitude Histogram:</p>
 			<FrequencyMagnitudeHistogram height={h2} width={w2} />
