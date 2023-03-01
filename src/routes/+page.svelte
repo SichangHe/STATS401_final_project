@@ -10,7 +10,10 @@
 </script>
 
 <article class="flex-column justify-center">
-	<h1>Analysis of 2023 Turkey-Syria Earthquake</h1>
+	<div class="flex-row justify-between">
+		<h1>Analysis of 2023 Turkey-Syria Earthquake</h1>
+		<img src="qr_code.svg" alt="QR code to this webpage." />
+	</div>
 
 	<div class="flex-item">
 		<p>
@@ -50,6 +53,10 @@
 		width: 21cm;
 	}
 
+	img {
+		width: 8%;
+	}
+
 	.flex-column {
 		display: flex;
 		flex-direction: column;
@@ -60,5 +67,8 @@
 	}
 	.justify-center {
 		justify-content: center;
+	}
+	.justify-between {
+		justify-content: space-between;
 	}
 </style>

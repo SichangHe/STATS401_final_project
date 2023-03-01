@@ -21,7 +21,7 @@
 			}
 			aggregated.push({ text: tk, size: cnt });
 		}
-            aggregated.sort((a, b) => b.size - a.size);
+		aggregated.sort((a, b) => b.size - a.size);
 		return aggregated;
 	};
 
