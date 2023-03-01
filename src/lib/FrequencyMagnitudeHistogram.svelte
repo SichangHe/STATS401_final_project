@@ -36,18 +36,20 @@
 
 		svg
 			.append('g')
-			.attr('transform', 'translate(50,' + heightWithMargin + ')')
+			.attr('transform', 'translate(' + margin.left + ',' + heightWithMargin + ')')
 			.call(d3.axisBottom(x));
-		svg.append('text').attr('x', 10).attr('y', 15).text('frequency');
-		svg.append('text').attr('x', 420).attr('y', 460).text('mag');
-		svg.append('g').attr('transform', 'translate(50,0)').call(d3.axisLeft(y));
 
+		svg
+			.append('g')
+			.attr('transform', 'translate(' + margin.left + ',' + '0)')
+			.call(d3.axisLeft(y));
 		svg
 			.selectAll('rect')
 			.data(bins)
 			.enter()
 			.append('rect')
-			.attr('x', 50)
+			.attr('x', margin.left)
+			.attr('y', 0)
 			.attr('transform', function (d) {
 				return 'translate(' + x(d.x0) + ',' + y(d.length) + ')';
 			})
@@ -58,6 +60,16 @@
 				return heightWithMargin - y(d.length);
 			})
 			.style('fill', fill);
+		svg
+			.append('text')
+			.attr('x', margin.left + 10)
+			.attr('y', margin.top + 1)
+			.text('frequency');
+		svg
+			.append('text')
+			.attr('x', widthWithMargin + margin.left - 10)
+			.attr('y', heightWithMargin - 5)
+			.text('mag');
 	});
 </script>
 
