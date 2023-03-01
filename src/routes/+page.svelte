@@ -7,13 +7,46 @@
 </script>
 
 <h1>Analysis of 2023 Turkey-Syria Earthquake</h1>
-<p>Earthquake distribution map of earthquakes from 2000 to 2023 around the Turkey-Syria region.</p>
-<EurasiaMap />
-<p>Word cloud of Tweets.</p>
-<WordCloud />
-<p>Demo sentiment analysis:</p>
-<SentimentAnalysis />
-<p>Frequence Magnitude Histogram:</p>
-<FrequencyMagnitudeHistogram />
-<p>frequency</p>
-<Frequency />
+<div class="flex-column justify-center">
+	<div class="flex-item">
+		<p>
+			Earthquake distribution map of earthquakes from 2000 to 2023 around the Turkey-Syria region.
+		</p>
+		<EurasiaMap />
+	</div>
+	<div class="flex-row justify-center">
+		<div class="flex-item">
+			<p>Word cloud of Tweets.</p>
+			<WordCloud />
+		</div>
+		<div class="flex-item">
+			<p>Demo sentiment analysis:</p>
+			<SentimentAnalysis />
+		</div>
+	</div>
+	<div class="flex-row justify-center">
+		<div class="flex-item">
+			<p>Frequence Magnitude Histogram:</p>
+			<FrequencyMagnitudeHistogram />
+		</div>
+		<div class="flex-item" />
+		<div class="flex-item">
+			<p>frequency</p>
+			<Frequency />
+		</div>
+	</div>
+</div>
+
+<style>
+	.flex-column {
+		display: flex;
+		flex-direction: column;
+	}
+	.flex-row {
+		display: flex;
+		flex-direction: row;
+	}
+	.justify-center {
+		justify-content: center;
+	}
+</style>
