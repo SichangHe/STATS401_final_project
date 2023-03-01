@@ -53,7 +53,7 @@
 		border-color: lightgray;
 		border-style: solid;
 		border-width: 2px;
-        font-family: "PT Serif";
+		font-family: 'PT Serif';
 		min-height: 29.7cm;
 		width: 21cm;
 	}
@@ -68,12 +68,12 @@
 	}
 
 	img {
-        padding: 2px;
-		width: 8%;
+		padding: 2px;
+		width: 64px;
 	}
 
 	.dark {
-		background-color: hsl(180deg, 10%, 10%) !important;
+		background-color: hsl(180deg, 10%, 10%);
 		color: hsl(300deg, 100%, 90%);
 	}
 
