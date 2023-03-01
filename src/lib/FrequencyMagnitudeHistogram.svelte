@@ -6,6 +6,7 @@
 	const margin = { top: 10, right: 20, bottom: 30, left: 40 };
 	export let width = 350;
 	export let height = 250;
+	export let fill = '#69b3a2';
 	const widthWithMargin = width - margin.left - margin.right;
 	const heightWithMargin = height - margin.top - margin.bottom;
 
@@ -56,7 +57,7 @@
 			.attr('height', function (d) {
 				return heightWithMargin - y(d.length);
 			})
-			.style('fill', '#69b3a2');
+			.style('fill', fill);
 	});
 </script>
 

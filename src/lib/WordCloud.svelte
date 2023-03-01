@@ -28,6 +28,7 @@
 	// set the dimensions and margins of the graph
 	export let width = 350;
 	export let height = 250;
+	export let fill = '#69b3a2';
 
 	let svg_node: SVGSVGElement;
 
@@ -60,7 +61,7 @@
 				.enter()
 				.append('text')
 				.style('font-size', (d) => d.size)
-				.style('fill', '#69b3a2')
+				.style('fill', fill)
 				.attr('text-anchor', 'middle')
 				.style('font-family', 'Impact')
 				.attr('transform', (d) => `translate(${[d.x, d.y]})rotate(${d.rotate})`)

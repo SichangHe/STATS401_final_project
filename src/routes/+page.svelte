@@ -9,6 +9,7 @@
 
 	const h2 = 250;
 	const w2 = 350;
+	const dark_purple = 'hsl(300deg, 90%, 40%)';
 </script>
 
 <article class="flex-column justify-center">
@@ -22,24 +23,28 @@
 
 		<div class="flex-row justify-between">
 			<h1>Analysis of 2023 Turkey-Syria Earthquake</h1>
-			<img src="{base}/qr_code.svg" alt="QR code to this webpage." />
+			<div class="flex-column justify-center">
+				<img src="{base}/qr_code.svg" alt="QR code to this webpage." />
+				<span> Scan to interact! </span>
+			</div>
 		</div>
 	</div>
 
 	<div class="flex-row justify-between">
 		<div class="flex-item">
 			<p>Word cloud of Tweets.</p>
-			<WordCloud height={h2} width={w2} />
+			<WordCloud height={h2} width={w2} fill={dark_purple} />
 		</div>
 		<div class="flex-item">
 			<p>Demo sentiment analysis:</p>
 			<SentimentAnalysis height={h2} width={w2} />
 		</div>
 	</div>
+
 	<div class="flex-row justify-between">
 		<div class="flex-item">
 			<p>Frequence Magnitude Histogram:</p>
-			<FrequencyMagnitudeHistogram height={h2} width={w2} />
+			<FrequencyMagnitudeHistogram height={h2} width={w2} fill={dark_purple} />
 		</div>
 		<div class="flex-item">
 			<p>frequency</p>
@@ -50,9 +55,13 @@
 
 <style>
 	article {
+		/* TODO: remove border when the layout is done. */
 		border-color: lightgray;
 		border-style: solid;
 		border-width: 2px;
+
+		background-color: hsl(45deg, 80%, 90%);
+		color: hsl(300deg, 100%, 15%);
 		font-family: 'PT Serif';
 		min-height: 29.7cm;
 		width: 21cm;
@@ -70,6 +79,11 @@
 	img {
 		padding: 2px;
 		width: 64px;
+	}
+
+	span {
+		font-size: 0.55rem;
+		text-align: center;
 	}
 
 	.dark {
