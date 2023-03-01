@@ -148,6 +148,7 @@
 	div {
 		color: white;
 		position: absolute;
+		transform: translateX(-50%);
 		visibility: hidden;
 		-webkit-text-stroke: 0.2px black;
 	}
