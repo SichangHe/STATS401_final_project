@@ -1,7 +1,7 @@
 <script lang="ts">
 	type Config = {
 		title?: string;
-		time?: string;
+		body?: string;
 		visible?: boolean;
 		left?: number;
 		top?: number;
@@ -22,7 +22,7 @@
 >
 	<h2 style="background-color: {cfg.fill};">{cfg.title}</h2>
 	<p>
-		{cfg.time}
+		{cfg.body}
 	</p>
 </div>
 
@@ -33,6 +33,7 @@
 		border-radius: 0.5rem;
 		border-style: solid;
 		border-width: 2px;
+        color: black;
 		padding-left: 1rem;
 		padding-right: 1rem;
 		position: absolute;

@@ -3,6 +3,7 @@
 	import * as d3 from 'd3';
 	import cloud from 'd3-cloud';
 	import { data } from '$lib/date_w_tokens.json';
+	import QuakeCard from '$lib/QuakeCard.svelte';
 
 	const blacklist =
 		/^((turkey)|(turki)|(syria)|(earthqua)|(http).*)|(that)|(those)|(than)|(from)|(this)|(will)|(with)|(have)|(been)|(were)|(they)|(them)|(their)|(your)|(for)|(the)|(and)|(you)|(who)|(are)|(her)|(our)|(has)|(amp)|(his)|(not)|(but)|(was)|(000)|(can)|(tur)|(tra)|(what)|(\[.*\])$/i;
@@ -19,9 +20,9 @@
 			if (tk.length < 3 || blacklist.test(tk)) {
 				continue;
 			}
-			aggregated.push({ text: tk, size: cnt });
+			aggregated.push({ text: tk, count: cnt });
 		}
-		aggregated.sort((a, b) => b.size - a.size);
+		aggregated.sort((a, b) => b.count - a.count);
 		return aggregated;
 	};
 
@@ -31,13 +32,14 @@
 	export let fill = '#69b3a2';
 
 	let svg_node: SVGSVGElement;
+	let card: QuakeCard;
 
 	onMount(() => {
 		// append the svg object to the body of the page
 		const svg = d3.select(svg_node).append('g');
 
 		const words = count_data(data).slice(0, 50);
-		const scale_word = 64 / words[0].size;
+		const scale_word = 64 / words[0].count;
 
 		// Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
 		// Wordcloud features that are different from one word to the other must be here
@@ -46,10 +48,19 @@
 			.words(words)
 			.padding(5) //space between words
 			.rotate(() => ~~(Math.random() * 2) * 90)
-			.fontSize((d) => d.size * scale_word) // font size of words
+			.fontSize((d) => d.count * scale_word) // font size of words
 			.on('end', draw);
 		layout.start();
 
+		function card_follow(mouse_event: any, d: any) {
+			card.config({
+				visible: true,
+				title: d.text,
+				body: `${d.count} mensions`,
+				left: mouse_event.pageX,
+				top: mouse_event.pageY + 50
+			});
+		}
 		// This function takes the output of 'layout' above and draw the words
 		// Wordcloud features that are THE SAME from one word to the other can be here
 		function draw(words) {
@@ -65,9 +76,13 @@
 				.attr('text-anchor', 'middle')
 				.style('font-family', 'Impact')
 				.attr('transform', (d) => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
-				.text((d) => d.text);
+				.text((d) => d.text)
+				.on('mouseover', (_, d) => console.log(d))
+				.on('mousemove', card_follow)
+				.on('mouseout', () => card.config({ visible: false }));
 		}
 	});
 </script>
 
 <svg bind:this={svg_node} {height} {width} />
+<QuakeCard bind:this={card} />

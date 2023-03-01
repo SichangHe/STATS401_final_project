@@ -47,7 +47,7 @@
 		card.config({
 			visible: true,
 			title: quake.mag.toString(),
-			time: quake.time.toLocaleString(),
+			body: quake.time.toLocaleString(),
 			left: mouse_event.pageX,
 			top: mouse_event.pageY + 50,
 			fill: circle.style.fill
@@ -154,8 +154,5 @@
 	svg {
 		/* Dim blue. */
 		background-color: hsl(200deg 10% 20%);
-	}
-	:global(.axis text) {
-		fill: white;
 	}
 </style>
