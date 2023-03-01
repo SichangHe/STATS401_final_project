@@ -5,17 +5,14 @@
 	import data from '$lib/sentiment.csv';
 
 	let svg_node: SVGSVGElement;
-	let width = 350;
-	let height = 250;
+	export let width = 350;
+	export let height = 250;
 	const barWidth = 30;
 
 	const margin = { top: 20, right: 10, bottom: 20, left: 10 };
 
-	width = width - margin.left - margin.right;
-	height = height - margin.top - margin.bottom;
-
-	const totalWidth = width + margin.left + margin.right;
-	const totalheight = height + margin.top + margin.bottom;
+	const widthWithMargin = width - margin.left - margin.right;
+	const heightWithMargin = height - margin.top - margin.bottom;
 
 	onMount(() => {
 		// import data
@@ -52,17 +49,17 @@
 		const xScale = d3
 			.scalePoint()
 			.domain(Object.keys(groupCounts))
-			.rangeRound([0, width])
+			.rangeRound([0, widthWithMargin])
 			.padding(0.5);
 
 		// Compute a global y scale based on the global counts
-		const yScale = d3.scaleLinear().domain([-1, 1]).range([0, height]);
+		const yScale = d3.scaleLinear().domain([-1, 1]).range([0, heightWithMargin]);
 
 		// Setup the svg and group we will draw the box plot in
 		const svg = d3
 			.select(svg_node)
-			.attr('width', totalWidth)
-			.attr('height', totalheight)
+			.attr('width', width)
+			.attr('height', height)
 			.append('g')
 			.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 

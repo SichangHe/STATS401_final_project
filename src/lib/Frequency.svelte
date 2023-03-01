@@ -7,8 +7,8 @@
 
 	var parseDate = d3.timeParse('%Y/%m/%d');
 
-	var height = 250;
-	var width = 350;
+	export let height = 250;
+	export let width = 350;
 	var maxDate = d3.max(data, function (d) {
 		return parseDate(d.Date);
 	});

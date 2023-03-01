@@ -4,6 +4,9 @@
 	import SentimentAnalysis from '$lib/SentimentAnalysis.svelte';
 	import FrequencyMagnitudeHistogram from '../lib/FrequencyMagnitudeHistogram.svelte';
 	import Frequency from '$lib/Frequency.svelte';
+
+	const h2 = 250;
+	const w2 = 350;
 </script>
 
 <article class="flex-column justify-center">
@@ -18,22 +21,22 @@
 	<div class="flex-row justify-center">
 		<div class="flex-item">
 			<p>Word cloud of Tweets.</p>
-			<WordCloud />
+			<WordCloud height={h2} width={w2} />
 		</div>
 		<div class="flex-item">
 			<p>Demo sentiment analysis:</p>
-			<SentimentAnalysis />
+			<SentimentAnalysis height={h2} width={w2} />
 		</div>
 	</div>
 	<div class="flex-row justify-center">
 		<div class="flex-item">
 			<p>Frequence Magnitude Histogram:</p>
-			<FrequencyMagnitudeHistogram />
+			<FrequencyMagnitudeHistogram height={h2} width={w2} />
 		</div>
 		<div class="flex-item" />
 		<div class="flex-item">
 			<p>frequency</p>
-			<Frequency />
+			<Frequency height={h2} width={w2} />
 		</div>
 	</div>
 </article>

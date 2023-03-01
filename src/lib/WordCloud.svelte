@@ -26,20 +26,14 @@
 	};
 
 	// set the dimensions and margins of the graph
-	const margin = { top: 10, right: 10, bottom: 10, left: 10 },
-		width = 350 - margin.left - margin.right,
-		height = 250 - margin.top - margin.bottom;
+	export let width = 350;
+	export let height = 250;
 
 	let svg_node: SVGSVGElement;
 
 	onMount(() => {
 		// append the svg object to the body of the page
-		const svg = d3
-			.select(svg_node)
-			.attr('width', width + margin.left + margin.right)
-			.attr('height', height + margin.top + margin.bottom)
-			.append('g')
-			.attr('transform', `translate(${margin.left},${margin.top})`);
+		const svg = d3.select(svg_node).attr('width', width).attr('height', height).append('g');
 
 		const words = count_data(data).slice(0, 50);
 		const scale_word = 64 / words[0].size;
