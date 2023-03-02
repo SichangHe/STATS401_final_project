@@ -44,7 +44,7 @@
 
 	<div class="flex-row justify-between">
 		<div class="flex-item">
-			<p>Word cloud of Tweets.</p>
+			<p>▼ Frequent word fragments in Tweets. Words related to rescues are most common.</p>
 			<WordCloud height={h2} width={w2} fill={dark_purple} />
 		</div>
 		<div class="flex-item">
