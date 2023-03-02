@@ -33,7 +33,7 @@
 		border-radius: 0.5rem;
 		border-style: solid;
 		border-width: 2px;
-        color: black;
+		color: black;
 		padding-left: 1rem;
 		padding-right: 1rem;
 		position: absolute;

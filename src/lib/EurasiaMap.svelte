@@ -37,6 +37,7 @@
 		content: ''
 	};
 	let slider_opacity = 0;
+	let begin_year = 0;
 	let card: QuakeCard;
 	let g_node: SVGGElement;
 	let slider_node: SVGGElement;
@@ -45,17 +46,31 @@
 		tooltip.left = mouse_event.pageX;
 		tooltip.top = mouse_event.pageY + 50;
 	};
-	const card_follow = (mouse_event: any, quake: Quake) => {
+	const card_follow = (mouse_event: MouseEvent) =>
+		card.config({
+			visible: true,
+			left: mouse_event.pageX,
+			top: mouse_event.pageY + 50
+		});
+	const card_follow_quake = (mouse_event: any, quake: Quake) => {
 		const circle: HTMLElement = mouse_event.target;
 		circle.style.opacity = '1';
 		console.log(quake);
+		card_follow(mouse_event);
 		card.config({
 			visible: true,
 			title: quake.mag.toString(),
 			body: quake.time.toLocaleString(),
-			left: mouse_event.pageX,
-			top: mouse_event.pageY + 50,
 			fill: circle.style.fill
+		});
+	};
+	const card_follow_slider = (mouse_event: MouseEvent) => {
+		slider_opacity = 1;
+		card_follow(mouse_event);
+		card.config({
+			title: `Since ${2000 + begin_year}`,
+			fill: 'white',
+			body: 'Slide to choose time interval.'
 		});
 	};
 	const hide_card_tooltip = () => {
@@ -87,7 +102,7 @@
 			.style('stroke-width', 0.7)
 			.attr('fill-opacity', 0.5)
 			.style('opacity', 0.8)
-			.on('mouseover', card_follow)
+			.on('mouseover', card_follow_quake)
 			.on('mousemove', tooltip_follow)
 			.on('mouseout', (e) => (e.target.style.opacity = 0.8));
 
@@ -95,13 +110,8 @@
 		const svg = d3.select(svg_node).on('mouseout', hide_card_tooltip);
 		const slider = d3
 			.select(slider_node)
-			.on('mouseover', (e: MouseEvent) => {
-				console.log(e);
-				tooltip.visible = true;
-				tooltip.content = 'Slide to choose time interval.';
-				slider_opacity = 1;
-			})
-			.on('mousemove', tooltip_follow)
+			.on('mouseover', card_follow_slider)
+			.on('mousemove', card_follow)
 			.on('mouseout', () => {
 				tooltip.visible = false;
 				slider_opacity = 0;
@@ -153,6 +163,10 @@
 			.displayValue(false)
 			.tickPadding(-8)
 			.on('onchange', (d: number) => {
+				begin_year = d;
+				card.config({
+					title: `Since ${2000 + begin_year}`
+				});
 				g.call(draw_quakes, filter_quakes(new Date(2000 + d, 0, 0)));
 			});
 		slider.call(make_slider);
