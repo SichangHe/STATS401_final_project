@@ -32,7 +32,8 @@
 			<div>
 				<h1>Analysis of 2023 Turkey-Syria Earthquake</h1>
 				<p>
-					Magnitude 7.8 Turkey-Syria earthquake caused massive destruction and 45,000+ deaths. Why?
+					Turkey-Syria earthquake caused massive destruction and 45,000+ deaths. Why is it so fatal?
+					How did people express their feelings about it?
 				</p>
 			</div>
 			<div class="flex-column justify-center">
@@ -59,7 +60,7 @@
 			<FrequencyMagnitudeHistogram height={h2} width={w2} fill={dark_purple} />
 		</div>
 		<div class="flex-item">
-			<p>frequency</p>
+			<p>Turkish government blocked Twitter on Feb 8. What effects did it bring?</p>
 			<Frequency height={h2} width={w2} stroke={dark_purple} />
 		</div>
 	</div>
