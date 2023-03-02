@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
+	import { sliderBottom } from 'd3-simple-slider';
 	import { features } from '$lib/custom.geo.json';
 	import QuakeCard from '$lib/QuakeCard.svelte';
 	// @ts-ignore
@@ -20,8 +21,9 @@
 	const normalize_offset = 1 / 6;
 	const mag_position = (mag: number) => (mag - min_mag) / mag_diff;
 	const normalize_mag = (mag: number) => -mag_position(mag) * normalize_offset + normalize_offset;
+	const filter_quakes = (begin: Date) => quakes.filter((q: Quake) => q.time > begin);
 
-	const width = 794;
+	const width = 793;
 	const height = 280;
 	const countries = ['Turkey', 'Syria'];
 	const pale_red_gray = 'hsl(0 30% 10%)';
@@ -35,6 +37,8 @@
 		content: ''
 	};
 	let card: QuakeCard;
+	let g_node: SVGGElement;
+	let slider_node: SVGGElement;
 
 	const tooltip_follow = (mouse_event: MouseEvent) => {
 		tooltip.left = mouse_event.pageX;
@@ -69,9 +73,28 @@
 		.range([0, width / 2]);
 	const color_axis = d3.axisBottom(color_scale);
 
+	const draw_quakes = (el: d3.Selection<SVGGElement, unknown, null, undefined>, quakes: Quake[]) =>
+		el
+			.selectAll('circle')
+			.data(quakes)
+			.join('circle')
+			.attr('cx', (d: any) => projection([d.longitude, d.latitude])![0])
+			.attr('cy', (d: any) => projection([d.longitude, d.latitude])![1])
+			.attr('r', 3)
+			.style('fill', (d: any) => `hsl(${normalize_mag(d.mag)}turn 100% 50%)`)
+			.style('stroke', (d: any) => `hsl(${normalize_mag(d.mag)}turn 100% 50%)`)
+			.style('stroke-width', 0.7)
+			.attr('fill-opacity', 0.5)
+			.style('opacity', 0.8)
+			.on('mouseover', card_follow)
+			.on('mousemove', tooltip_follow)
+			.on('mouseout', (e) => (e.target.style.opacity = 0.8));
+
 	onMount(() => {
 		const svg = d3.select(svg_node).on('mouseout', hide_card_tooltip);
-		const g = svg.append('g');
+		const slider = d3.select(slider_node);
+		const g = d3.select(g_node);
+		// Color scale bar.
 		svg
 			.append('g')
 			.attr('style', `transform: translate(20px, ${height - 30}px)`)
@@ -82,7 +105,7 @@
 			.attr('width', width / 2)
 			.style('opacity', 0.8)
 			.attr('fill', 'url(#eurasia-map-yellow-red-linear-gradient)');
-
+		// Draw countries.
 		g.selectAll('path')
 			.data(features)
 			.join('path')
@@ -97,7 +120,7 @@
 				tooltip.content = d.properties.name_en;
 			})
 			.on('mousemove', tooltip_follow);
-
+		// Handle zoom.
 		const zoom = d3
 			.zoom()
 			.scaleExtent([0.5, 5])
@@ -108,22 +131,19 @@
 			.on('zoom', (e) => g.attr('transform', e.transform));
 		// @ts-ignore
 		svg.call(zoom);
-
-		g.selectAll('circle')
-			.data(quakes)
-			.join('circle')
-			.attr('cx', (d: any) => projection([d.longitude, d.latitude])![0])
-			.attr('cy', (d: any) => projection([d.longitude, d.latitude])![1])
-			.attr('r', 3)
-			.style('fill', (d: any) => `hsl(${normalize_mag(d.mag)}turn 100% 50%)`)
-			.style('stroke', (d: any) => `hsl(${normalize_mag(d.mag)}turn 100% 50%)`)
-			.style('stroke-width', 0.7)
-			.attr('fill-opacity', 0.5)
-			.style('opacity', 0.8)
-			// @ts-ignore
-			.on('mouseover', card_follow)
-			.on('mousemove', tooltip_follow)
-			.on('mouseout', (e) => (e.target.style.opacity = 0.8));
+		// Slider
+		const make_slider = sliderBottom()
+			.min(0)
+			.max(23)
+			.step(1)
+			.width(width / 4)
+			.displayValue(false)
+			.on('onchange', (d: number) => {
+				g.call(draw_quakes, filter_quakes(new Date(2000 + d, 0, 0)));
+			});
+		slider.call(make_slider);
+		// Initial quakes drawing.
+		g.call(draw_quakes, quakes);
 	});
 </script>
 
@@ -134,6 +154,8 @@
 			<stop offset="100%" style="stop-color: hsl({normalize_mag(max_mag)}turn 100% 50%)" />
 		</linearGradient></defs
 	>
+	<g bind:this={g_node} />
+	<g bind:this={slider_node} style="transform: translate({(width * 2) / 3}px, {height - 40}px);" />
 </svg>
 <div
 	style="left: {tooltip.left}px; top: {tooltip.top}px; visibility: {tooltip.visible
