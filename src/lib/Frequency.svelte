@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
-	let svg_node;
-
+	let svg_node: SVGSVGElement;
+	//@ts-ignore
 	import data from '$lib/frequency.csv';
 
 	var parseDate = d3.timeParse('%Y/%m/%d');
@@ -19,24 +19,25 @@
 		return Number(d.num);
 	});
 
-	// console.log(maxNum);
-
 	onMount(() => {
 		var parseDate = d3.timeParse('%Y/%m/%d');
 
-		var y = d3.scaleLinear().domain([0, maxNum]).range([height, 0]);
+		var y = d3
+			.scaleLinear()
+			.domain([0, maxNum])
+			.range([height - 70, 0]);
 
-		var x = d3.scaleTime().domain([minDate, maxDate]).range([0, width]);
+		var x = d3
+			.scaleTime()
+			.domain([minDate, maxDate])
+			.range([0, width - 70]);
 
 		var yAxis = d3.axisLeft(y);
-		var xAxis = d3.axisBottom(x);
+		var xAxis = d3.axisBottom(x).ticks(5);
 
-		var svg = d3
-			.select(svg_node)
-			.attr('height', height + 100)
-			.attr('width', width + 100);
+		var svg = d3.select(svg_node).attr('height', height).attr('width', width);
 
-		var chartGroup = svg.append('g').attr('transform', 'translate(50,50)');
+		var chartGroup = svg.append('g').attr('transform', 'translate(40, 30)');
 
 		var line = d3
 			.line()
@@ -52,7 +53,7 @@
 		chartGroup
 			.append('g')
 			.attr('class', 'x axis')
-			.attr('transform', 'translate(0, ' + height + ')')
+			.attr('transform', 'translate(0, ' + (height - 70) + ')')
 			.call(xAxis);
 
 		chartGroup.append('g').attr('class', 'y axis').call(yAxis);
@@ -61,16 +62,15 @@
 			.append('text')
 			.attr('class', 'x label')
 			.attr('text-anchor', 'end')
-			.attr('x', 400)
-			.attr('y', 500)
+			.attr('x', width)
+			.attr('y', height - 45)
 			.text('Date');
 
 		svg
 			.append('text')
 			.attr('class', 'y label')
-			.attr('text-anchor', 'end')
-			.attr('x', 150)
-			.attr('y', 30)
+			.attr('x', 0)
+			.attr('y', 20)
 			.text('number of mention');
 	});
 </script>

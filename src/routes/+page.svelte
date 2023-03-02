@@ -17,7 +17,7 @@
 	const purple_scheme3 = gen_purple_scheme(3);
 </script>
 
-<article>
+<article class="flex-column justify-between">
 	<div class="dark flex-column">
 		<div class="flex-item">
 			<EurasiaMap />
