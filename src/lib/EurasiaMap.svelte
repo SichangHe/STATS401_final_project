@@ -36,6 +36,7 @@
 		visible: false,
 		content: ''
 	};
+	let slider_opacity = 0;
 	let card: QuakeCard;
 	let g_node: SVGGElement;
 	let slider_node: SVGGElement;
@@ -92,7 +93,19 @@
 
 	onMount(() => {
 		const svg = d3.select(svg_node).on('mouseout', hide_card_tooltip);
-		const slider = d3.select(slider_node);
+		const slider = d3
+			.select(slider_node)
+			.on('mouseover', (e: MouseEvent) => {
+				console.log(e);
+				tooltip.visible = true;
+				tooltip.content = 'Slide to choose time interval.';
+				slider_opacity = 1;
+			})
+			.on('mousemove', tooltip_follow)
+			.on('mouseout', () => {
+				tooltip.visible = false;
+				slider_opacity = 0;
+			});
 		const g = d3.select(g_node);
 		// Color scale bar.
 		svg
@@ -138,6 +151,7 @@
 			.step(1)
 			.width(width / 4)
 			.displayValue(false)
+			.tickPadding(-8)
 			.on('onchange', (d: number) => {
 				g.call(draw_quakes, filter_quakes(new Date(2000 + d, 0, 0)));
 			});
@@ -155,7 +169,10 @@
 		</linearGradient></defs
 	>
 	<g bind:this={g_node} />
-	<g bind:this={slider_node} style="transform: translate({(width * 2) / 3}px, {height - 40}px);" />
+	<g
+		bind:this={slider_node}
+		style="transform: translate({(width * 2) / 3}px, {height - 30}px); opacity: {slider_opacity}"
+	/>
 </svg>
 <div
 	style="left: {tooltip.left}px; top: {tooltip.top}px; visibility: {tooltip.visible
@@ -177,5 +194,9 @@
 	svg {
 		/* Dim blue. */
 		background-color: hsl(200deg 10% 20%);
+	}
+
+	:global(g.slider > g > path) {
+		outline: none;
 	}
 </style>
