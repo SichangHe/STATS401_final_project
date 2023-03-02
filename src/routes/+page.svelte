@@ -36,7 +36,7 @@
 				</p>
 			</div>
 			<div class="flex-column justify-center">
-				<img src="{base}/qr_code.svg" alt="QR code to this webpage." />
+				<img src="{base}/qr_code.svg" alt="QR code to this webpage." class="qr-code" />
 				<span> Scan to interact! </span>
 			</div>
 		</div>
@@ -64,7 +64,12 @@
 		</div>
 	</div>
 	<div class="authors">
-		<p>By Steven Hé (Sīchàng), Gezhi Wang, Yuxuan Wang, Neil Kelly for STATS 401.</p>
+		<p>
+			By Steven Hé (Sīchàng), Gezhi Wang, Yuxuan Wang, Neil Kelly for STATS 401.
+			<a href="https://github.com/SichangHe/STATS401_final_project">
+				<img src="{base}/gh-icon.svg" alt="GitHub icon." class="gh-icon" /></a
+			>
+		</p>
 	</div>
 </article>
 
@@ -93,9 +98,13 @@
 		margin-top: 0.5rem;
 	}
 
-	img {
+	img.qr-code {
 		padding: 2px;
 		width: 64px;
+	}
+
+	img.gh-icon {
+		width: 8px;
 	}
 
 	p {
