@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import EurasiaMap from '$lib/EurasiaMap.svelte';
 	import WordCloud from '$lib/WordCloud.svelte';
 	import SentimentAnalysis from '$lib/SentimentAnalysis.svelte';
@@ -10,6 +10,11 @@
 	const h2 = 250;
 	const w2 = 350;
 	const dark_purple = 'hsl(300deg, 90%, 40%)';
+    // Generate an array of purple colors of given number
+    // from hsl(300deg, 90%, 90%) to hsl(300deg, 90%, 10%)
+	const gen_purple_scheme = (n: number) =>
+		[...Array(n).keys()].map((i: number) => `hsl(300deg, 90%, ${80 * (1 - i / (n - 1)) + 10}%)`);
+	const purple_scheme3 = gen_purple_scheme(3);
 </script>
 
 <article class="flex-column justify-center">
@@ -37,7 +42,7 @@
 		</div>
 		<div class="flex-item">
 			<p>Demo sentiment analysis:</p>
-			<SentimentAnalysis height={h2} width={w2} />
+			<SentimentAnalysis height={h2} width={w2} scheme={purple_scheme3} />
 		</div>
 	</div>
 

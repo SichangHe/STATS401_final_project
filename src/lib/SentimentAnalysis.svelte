@@ -7,6 +7,7 @@
 	let svg_node: SVGSVGElement;
 	export let width = 350;
 	export let height = 250;
+	export let scheme = d3.schemeBlues[9];
 	const barWidth = 30;
 
 	const margin = { top: 20, right: 10, bottom: 20, left: 10 };
@@ -39,7 +40,7 @@
 		}
 
 		// Setup a color scale for filling each box
-		const colorScale = d3.scaleOrdinal(d3.schemeBlues[9]).domain(Object.keys(groupCounts));
+		const colorScale = d3.scaleOrdinal(scheme).domain(Object.keys(groupCounts));
 
 		function boxQuartiles(d) {
 			return [d3.quantile(d, 0.25), d3.quantile(d, 0.5), d3.quantile(d, 0.75)];
