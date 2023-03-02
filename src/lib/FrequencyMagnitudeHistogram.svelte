@@ -11,29 +11,29 @@
 	const heightWithMargin = height - margin.top - margin.bottom;
 
 	let svg_node;
+
+	const x = d3.scaleLinear().domain([5, 10]).range([0, widthWithMargin]);
+	const histogram = d3
+		.histogram()
+		.value(function (d) {
+			return d.mag;
+		})
+		.domain(x.domain())
+		.thresholds(x.ticks(70));
+
+	const bins = histogram(quakes);
+
+	const y = d3.scaleLinear().range([heightWithMargin, 0]);
+
+	y.domain([
+		0,
+		d3.max(bins, function (d) {
+			return d.length;
+		})
+	]);
+
 	onMount(() => {
 		let svg = d3.select(svg_node);
-		const x = d3.scaleLinear().domain([5, 10]).range([0, widthWithMargin]);
-		const histogram = d3
-			.histogram()
-			.value(function (d) {
-				return d.mag;
-			})
-			.domain(x.domain())
-			.thresholds(x.ticks(70));
-
-		const bins = histogram(quakes);
-
-		const y = d3.scaleLinear().range([heightWithMargin, 0]);
-
-		y.domain([
-			0,
-			d3.max(bins, function (d) {
-				return d.length;
-			})
-		]);
-		svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
 		svg
 			.append('g')
 			.attr('transform', 'translate(' + margin.left + ',' + heightWithMargin + ')')
@@ -42,7 +42,7 @@
 		svg
 			.append('g')
 			.attr('transform', 'translate(' + margin.left + ',' + '0)')
-			.call(d3.axisLeft(y));
+			.call(d3.axisLeft(y).ticks(8));
 		svg
 			.selectAll('rect')
 			.data(bins)
@@ -63,13 +63,13 @@
 		svg
 			.append('text')
 			.attr('x', margin.left + 10)
-			.attr('y', margin.top + 1)
+			.attr('y', margin.top + 5)
 			.text('frequency');
 		svg
 			.append('text')
-			.attr('x', widthWithMargin + margin.left - 10)
-			.attr('y', heightWithMargin - 5)
-			.text('mag');
+			.attr('x', widthWithMargin + margin.left - 70)
+			.attr('y', heightWithMargin - 10)
+			.text('magnitude');
 	});
 </script>
 

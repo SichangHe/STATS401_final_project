@@ -30,7 +30,7 @@
 		.domain([minDate, maxDate])
 		.range([0, width - 70]);
 
-	const yAxis = d3.axisLeft(y);
+	const yAxis = d3.axisLeft(y).ticks(8);
 	const xAxis = d3.axisBottom(x).ticks(5);
 
 	const line = d3
