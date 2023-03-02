@@ -60,7 +60,7 @@
 		</div>
 		<div class="flex-item">
 			<p>frequency</p>
-			<Frequency height={h2} width={w2} />
+			<Frequency height={h2} width={w2} stroke={dark_purple} />
 		</div>
 	</div>
 	<div class="authors">

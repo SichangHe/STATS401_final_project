@@ -9,6 +9,7 @@
 
 	export let height = 250;
 	export let width = 350;
+	export let stroke = 'blue';
 	const maxDate = d3.max(data, function (d) {
 		return parseDate(d.Date);
 	});
@@ -19,36 +20,34 @@
 		return Number(d.num);
 	});
 
+	const y = d3
+		.scaleLinear()
+		.domain([0, maxNum])
+		.range([height - 70, 0]);
+
+	const x = d3
+		.scaleTime()
+		.domain([minDate, maxDate])
+		.range([0, width - 70]);
+
+	const yAxis = d3.axisLeft(y);
+	const xAxis = d3.axisBottom(x).ticks(5);
+
+	const line = d3
+		.line()
+		.x(function (d) {
+			return x(parseDate(d.Date));
+		})
+		.y(function (d) {
+			return y(Number(d.num));
+		});
+
 	onMount(() => {
-		const parseDate = d3.timeParse('%Y/%m/%d');
-
-		const y = d3
-			.scaleLinear()
-			.domain([0, maxNum])
-			.range([height - 70, 0]);
-
-		const x = d3
-			.scaleTime()
-			.domain([minDate, maxDate])
-			.range([0, width - 70]);
-
-		const yAxis = d3.axisLeft(y);
-		const xAxis = d3.axisBottom(x).ticks(5);
-
 		const svg = d3.select(svg_node).attr('height', height).attr('width', width);
 
 		const chartGroup = svg.append('g').attr('transform', 'translate(40, 30)');
 
-		const line = d3
-			.line()
-			.x(function (d) {
-				return x(parseDate(d.Date));
-			})
-			.y(function (d) {
-				return y(Number(d.num));
-			});
-
-		chartGroup.append('path').attr('d', line(data)).attr('fill', 'none').attr('stroke', 'blue');
+		chartGroup.append('path').attr('d', line(data)).attr('fill', 'none').attr('stroke', stroke);
 
 		chartGroup
 			.append('g')
