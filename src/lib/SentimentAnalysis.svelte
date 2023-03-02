@@ -53,7 +53,7 @@
 			.padding(0.5);
 
 		// Compute a global y scale based on the global counts
-		const yScale = d3.scaleLinear().domain([-1, 1]).range([0, heightWithMargin]);
+		const yScale = d3.scaleLinear().domain([-1, 1]).range([heightWithMargin, 0]);
 
 		// Setup the svg and group we will draw the box plot in
 		const svg = d3
@@ -95,14 +95,14 @@
 			})
 			.attr('y1', function (datum) {
 				const whisker = datum.whiskers[0];
-				return yScale(whisker);
+				return yScale(-whisker);
 			})
 			.attr('x2', function (datum) {
 				return xScale(datum.key) + barWidth / 2;
 			})
 			.attr('y2', function (datum) {
 				const whisker = datum.whiskers[1];
-				return yScale(whisker);
+				return yScale(-whisker);
 			})
 			.attr('stroke', '#000')
 			.attr('stroke-width', 1)
@@ -117,14 +117,14 @@
 			.attr('width', barWidth)
 			.attr('height', function (datum) {
 				const quartiles = datum.quartile;
-				const height = yScale(quartiles[2]) - yScale(quartiles[0]);
+				const height = -(yScale(quartiles[2]) - yScale(quartiles[0]));
 				return height;
 			})
 			.attr('x', function (datum) {
 				return xScale(datum.key);
 			})
 			.attr('y', function (datum) {
-				return yScale(datum.quartile[0]);
+				return yScale(-datum.quartile[0]);
 			})
 			.attr('fill', function (datum) {
 				return datum.color;
@@ -140,13 +140,13 @@
 					return xScale(datum.key);
 				},
 				y1: function (datum) {
-					return yScale(datum.whiskers[0]);
+					return yScale(-datum.whiskers[0]);
 				},
 				x2: function (datum) {
 					return xScale(datum.key) + barWidth;
 				},
 				y2: function (datum) {
-					return yScale(datum.whiskers[0]);
+					return yScale(-datum.whiskers[0]);
 				}
 			},
 			// Median line
@@ -155,13 +155,13 @@
 					return xScale(datum.key);
 				},
 				y1: function (datum) {
-					return yScale(datum.quartile[1]);
+					return yScale(-datum.quartile[1]);
 				},
 				x2: function (datum) {
 					return xScale(datum.key) + barWidth;
 				},
 				y2: function (datum) {
-					return yScale(datum.quartile[1]);
+					return yScale(-datum.quartile[1]);
 				}
 			},
 			// Bottom whisker
@@ -170,13 +170,13 @@
 					return xScale(datum.key);
 				},
 				y1: function (datum) {
-					return yScale(datum.whiskers[1]);
+					return yScale(-datum.whiskers[1]);
 				},
 				x2: function (datum) {
 					return xScale(datum.key) + barWidth;
 				},
 				y2: function (datum) {
-					return yScale(datum.whiskers[1]);
+					return yScale(-datum.whiskers[1]);
 				}
 			}
 		];
