@@ -8,9 +8,9 @@
 	export let width = 350;
 	export let height = 250;
 	export let scheme = d3.schemeBlues[9];
-	const barWidth = 30;
+	const barWidth = 10;
 
-	const margin = { top: 20, right: 10, bottom: 20, left: 10 };
+	const margin = { top: 20, right: 50, bottom: 20, left: 10 };
 
 	const widthWithMargin = width - margin.left - margin.right;
 	const heightWithMargin = height - margin.top - margin.bottom;
@@ -19,9 +19,9 @@
 		// import data
 		const groupCounts = {};
 		const globalCounts = [];
-		for (let i = 0; i < 2; i++) {
-			const cons = 5 + i;
-			const key = '2023/2/' + cons.toString();
+		for (let i = 0; i < 11; i++) {
+			const cons = 6 + i;
+			const key = '2/' + cons.toString();
 			groupCounts[key] = [];
 
 			for (let j = 0; j < data.length; j++) {
@@ -92,14 +92,14 @@
 			.enter()
 			.append('line')
 			.attr('x1', function (datum) {
-				return xScale(datum.key) + barWidth / 2;
+				return xScale(datum.key) + barWidth / 2 + 10;
 			})
 			.attr('y1', function (datum) {
 				const whisker = datum.whiskers[0];
 				return yScale(-whisker);
 			})
 			.attr('x2', function (datum) {
-				return xScale(datum.key) + barWidth / 2;
+				return xScale(datum.key) + barWidth / 2 + 10;
 			})
 			.attr('y2', function (datum) {
 				const whisker = datum.whiskers[1];
@@ -122,7 +122,7 @@
 				return height;
 			})
 			.attr('x', function (datum) {
-				return xScale(datum.key);
+				return xScale(datum.key) + 10;
 			})
 			.attr('y', function (datum) {
 				return yScale(-datum.quartile[0]);
@@ -138,13 +138,13 @@
 			// Top whisker
 			{
 				x1: function (datum) {
-					return xScale(datum.key);
+					return xScale(datum.key) + 10;
 				},
 				y1: function (datum) {
 					return yScale(-datum.whiskers[0]);
 				},
 				x2: function (datum) {
-					return xScale(datum.key) + barWidth;
+					return xScale(datum.key) + barWidth + 10;
 				},
 				y2: function (datum) {
 					return yScale(-datum.whiskers[0]);
@@ -153,13 +153,13 @@
 			// Median line
 			{
 				x1: function (datum) {
-					return xScale(datum.key);
+					return xScale(datum.key) + 10;
 				},
 				y1: function (datum) {
 					return yScale(-datum.quartile[1]);
 				},
 				x2: function (datum) {
-					return xScale(datum.key) + barWidth;
+					return xScale(datum.key) + barWidth + 10;
 				},
 				y2: function (datum) {
 					return yScale(-datum.quartile[1]);
@@ -168,13 +168,13 @@
 			// Bottom whisker
 			{
 				x1: function (datum) {
-					return xScale(datum.key);
+					return xScale(datum.key) + 10;
 				},
 				y1: function (datum) {
 					return yScale(-datum.whiskers[1]);
 				},
 				x2: function (datum) {
-					return xScale(datum.key) + barWidth;
+					return xScale(datum.key) + barWidth + 10;
 				},
 				y2: function (datum) {
 					return yScale(-datum.whiskers[1]);
