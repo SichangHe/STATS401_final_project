@@ -10,24 +10,31 @@
 	const h2 = 250;
 	const w2 = 350;
 	const dark_purple = 'hsl(300deg, 90%, 40%)';
-    // Generate an array of purple colors of given number
-    // from hsl(300deg, 90%, 90%) to hsl(300deg, 90%, 10%)
+	// Generate an array of purple colors of given number
+	// from hsl(300deg, 90%, 90%) to hsl(300deg, 90%, 10%)
 	const gen_purple_scheme = (n: number) =>
 		[...Array(n).keys()].map((i: number) => `hsl(300deg, 90%, ${80 * (1 - i / (n - 1)) + 10}%)`);
 	const purple_scheme3 = gen_purple_scheme(3);
 </script>
 
-<article class="flex-column justify-center">
+<article>
 	<div class="dark flex-column">
 		<div class="flex-item">
 			<EurasiaMap />
 			<p>
-				Earthquake distribution map of earthquakes from 2000 to 2023 around the Turkey-Syria region.
+				▲ Earthquake distribution 2000 ~ 2023. Two reddest points in the center are recent.
+				<br />
+				Despite many weaker quakes, this area seldom experience such strong ones, thus presumably unprepared.
 			</p>
 		</div>
 
 		<div class="flex-row justify-between">
-			<h1>Analysis of 2023 Turkey-Syria Earthquake</h1>
+			<div>
+				<h1>Analysis of 2023 Turkey-Syria Earthquake</h1>
+				<p>
+					Magnitude 7.8 Turkey-Syria earthquake caused massive destruction and 45,000+ deaths. Why?
+				</p>
+			</div>
 			<div class="flex-column justify-center">
 				<img src="{base}/qr_code.svg" alt="QR code to this webpage." />
 				<span> Scan to interact! </span>
@@ -79,11 +86,18 @@
 
 	h1 {
 		font-size: 2rem;
+		margin-bottom: 0.5rem;
+		margin-top: 0.5rem;
 	}
 
 	img {
 		padding: 2px;
 		width: 64px;
+	}
+
+	p {
+		margin-bottom: 0.25rem;
+		margin-top: 0.25rem;
 	}
 
 	span {
