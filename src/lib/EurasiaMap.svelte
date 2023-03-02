@@ -30,22 +30,12 @@
 	const pale_green_gray = 'hsl(120deg 10% 10%)';
 
 	let svg_node: SVGSVGElement;
-	let tooltip = {
-		left: 0,
-		top: 0,
-		visible: false,
-		content: ''
-	};
 	let slider_opacity = 0;
 	let begin_year = 0;
 	let card: QuakeCard;
 	let g_node: SVGGElement;
 	let slider_node: SVGGElement;
 
-	const tooltip_follow = (mouse_event: MouseEvent) => {
-		tooltip.left = mouse_event.pageX;
-		tooltip.top = mouse_event.pageY + 50;
-	};
 	const card_follow = (mouse_event: MouseEvent) =>
 		card.config({
 			visible: true,
@@ -73,10 +63,16 @@
 			body: 'Slide to choose time interval.'
 		});
 	};
-	const hide_card_tooltip = () => {
-		card.config({ visible: false });
-		tooltip.visible = false;
+	const card_follow_country = (mouse_event: MouseEvent, d: any) => {
+		card_follow(mouse_event);
+		card.config({
+			visible: true,
+			title: d.properties.name_en,
+			fill: 'white',
+			body: ''
+		});
 	};
+	const hide_card = () => card.config({ visible: false });
 
 	const projection = d3
 		.geoNaturalEarth1()
@@ -103,19 +99,16 @@
 			.attr('fill-opacity', 0.5)
 			.style('opacity', 0.8)
 			.on('mouseover', card_follow_quake)
-			.on('mousemove', tooltip_follow)
+			.on('mousemove', card_follow)
 			.on('mouseout', (e) => (e.target.style.opacity = 0.8));
 
 	onMount(() => {
-		const svg = d3.select(svg_node).on('mouseout', hide_card_tooltip);
+		const svg = d3.select(svg_node);
 		const slider = d3
 			.select(slider_node)
 			.on('mouseover', card_follow_slider)
 			.on('mousemove', card_follow)
-			.on('mouseout', () => {
-				tooltip.visible = false;
-				slider_opacity = 0;
-			});
+			.on('mouseout', () => (slider_opacity = 0));
 		const g = d3.select(g_node);
 		// Color scale bar.
 		svg
@@ -138,11 +131,8 @@
 			// @ts-ignore
 			.attr('d', d3.geoPath().projection(projection))
 			.style('stroke', 'hsl(300deg, 10%, 30%)')
-			.on('mouseover', (_, d) => {
-				tooltip.visible = true;
-				tooltip.content = d.properties.name_en;
-			})
-			.on('mousemove', tooltip_follow);
+			.on('mouseover', card_follow_country)
+			.on('mousemove', card_follow);
 		// Handle zoom.
 		const zoom = d3
 			.zoom()
@@ -152,10 +142,10 @@
 				[width, height]
 			])
 			.on('zoom', (e) => g.attr('transform', e.transform));
-		// @ts-ignore
-		svg.call(zoom);
 		// Slider
+		//@ts-ignore
 		const make_slider = sliderBottom()
+			//@ts-ignore
 			.min(0)
 			.max(23)
 			.step(1)
@@ -169,6 +159,9 @@
 				});
 				g.call(draw_quakes, filter_quakes(new Date(2000 + d, 0, 0)));
 			});
+
+		// @ts-ignore
+		svg.on('mouseout', hide_card).call(zoom);
 		slider.call(make_slider);
 		// Initial quakes drawing.
 		g.call(draw_quakes, quakes);
@@ -188,23 +181,10 @@
 		style="transform: translate({(width * 2) / 3}px, {height - 30}px); opacity: {slider_opacity}"
 	/>
 </svg>
-<div
-	style="left: {tooltip.left}px; top: {tooltip.top}px; visibility: {tooltip.visible
-		? 'visible'
-		: 'hidden'}"
->
-	<b> {tooltip.content} </b>
-</div>
+
 <QuakeCard bind:this={card} />
 
 <style>
-	div {
-		color: white;
-		position: absolute;
-		transform: translateX(-50%);
-		visibility: hidden;
-		-webkit-text-stroke: 0.2px black;
-	}
 	svg {
 		/* Dim blue. */
 		background-color: hsl(200deg 10% 20%);
