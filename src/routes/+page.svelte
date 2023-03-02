@@ -63,6 +63,9 @@
 			<Frequency height={h2} width={w2} />
 		</div>
 	</div>
+	<div class="authors">
+		<p>By Steven Hé (Sīchàng), Gezhi Wang, Yuxuan Wang, Neil Kelly for STATS 401.</p>
+	</div>
 </article>
 
 <style>
@@ -108,6 +111,11 @@
 	.dark {
 		background-color: hsl(180deg, 10%, 10%);
 		color: hsl(300deg, 100%, 90%);
+	}
+
+	.authors {
+		font-size: 0.55rem;
+		text-align: right;
 	}
 
 	.flex-column {
