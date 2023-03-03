@@ -75,18 +75,38 @@
 			<WordCloud height={h2} width={w2} fill={dark_purple} />
 		</div>
 		<div class="flex-item">
-			<p>Demo sentiment analysis:</p>
+			<p>▼ Sentiment of Tweets Related to Turkey Earthquake Over Time</p>
+			<p class = "font-2-3">
+				VADER Sentiment is calculated by summing up the sentiment score of each word in a tweet. 
+				With 0 representing a neutral tweet, it is clear that discussion on twitter is primarily negative. 
+				As the full extent of damage becomes apparent and criticism of the government’s response begin, 
+				sentiments stay negative. Perhaps this is why the Turkish government blocked Twitter?
+			</p>
 			<SentimentAnalysis height={h2} width={w2} scheme={purple_scheme7} />
 		</div>
 	</div>
 
 	<div class="flex-row justify-between">
 		<div class="flex-item">
-			<p>Frequence Magnitude Histogram:</p>
+			<p>▼ Frequency of Earthquakes by Magnitude from 2000 to Present</p>
+			<p class="font-2-3">
+				Earthquakes of low magnitude are exponentially more common than earthquakes of high magnitude. 
+				Though this analysis only includes earthquakes of magnitude 5.0 or greater, 
+				we expect this correlation to continue. The devastating earthquake that struck Turkey was 
+				truly a statistical anomaly.
+
+			</p>
 			<FrequencyMagnitudeHistogram height={h2} width={w2} fill={dark_purple} />
 		</div>
 		<div class="flex-item">
-			<p>Turkish government blocked Twitter on Feb 8. What effects did it bring?</p>
+			<p>▼ Frequency of Tweets Related to Turkey Earthquake</p>
+			<p class="font-2-3">
+				Frequency of tweets containing “turkey earthquake” and “#TurkeySyriaEarthquake”. 
+				Before the earthquake, baseline discussion of earthquakes was low. Though frequency of 
+				tweets mentioning earthquake skyrocketed after the disaster struck, it quickly died down, 
+				perhaps in part due to the Turkish government making the controversial decision to block 
+				Twitter temporarily on February 8, 2023.
+			</p>
 			<Frequency height={h2} width={w2} stroke={dark_purple} />
 		</div>
 	</div>
