@@ -10,11 +10,10 @@
 	const h2 = 200;
 	const w2 = 350;
 	const dark_purple = 'hsl(300deg, 90%, 40%)';
-	// Generate an array of purple colors of given number
-	// from hsl(300deg, 90%, 90%) to hsl(300deg, 90%, 10%)
-	const gen_purple_scheme = (n: number) =>
-		[...Array(n).keys()].map((i: number) => `hsl(300deg, 90%, ${60 * (1 - i / (n - 1)) + 30}%)`);
-	const purple_scheme7 = gen_purple_scheme(7);
+	const purple_scheme = {
+		a: 'hsl(300deg, 90%, 80%)',
+		b: 'hsl(300deg, 90%, 30%)'
+	};
 </script>
 
 <article class="flex-column font-7-8">
@@ -88,7 +87,7 @@
 					response begin, sentiments stay negative. Perhaps this is why the Turkish government
 					blocked Twitter?
 				</p>
-				<SentimentAnalysis height={h2} width={w2} scheme={purple_scheme7} />
+				<SentimentAnalysis height={h2} width={w2} scheme={purple_scheme} />
 			</div>
 			<div class="flex-item">
 				<Frequency height={h2} width={w2} stroke={dark_purple} />
