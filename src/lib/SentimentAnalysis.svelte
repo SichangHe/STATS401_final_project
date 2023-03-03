@@ -18,7 +18,6 @@
 	onMount(() => {
 		// import data
 		const groupCounts = {};
-		const globalCounts = [];
 		for (let i = 0; i < 11; i++) {
 			const cons = 6 + i;
 			const key = '2/' + cons.toString();
@@ -28,15 +27,8 @@
 				if (Number(data[j].date) == i) {
 					const entry = Number(data[j].p_comp);
 					groupCounts[key].push(entry);
-					globalCounts.push(entry);
 				}
 			}
-		}
-
-		// Sort group counts so quantile methods work
-		for (const key in groupCounts) {
-			const groupCount = groupCounts[key];
-			groupCounts[key] = groupCount.sort();
 		}
 
 		// Setup a color scale for filling each box
@@ -211,6 +203,3 @@
 </script>
 
 <svg bind:this={svg_node} {height} {width} />
-
-<style>
-</style>
