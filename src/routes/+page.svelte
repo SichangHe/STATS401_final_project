@@ -26,12 +26,12 @@
 				unprepared.
 			</p>
 			<div class="column-2 gap-1 font-5-8">
-				Polygons represent countries. Turkey and Syria are marked dark red. Each circle for one
-				earthquake of magnitude ≥ 5. Hue represent magnitude. Hover over each earthquake to get a
-				pop-up card about its magnitude and time.
-				<br />
-				Drag, scroll, and pinch to pan and zoom the map. Hover over the bottom right of the map to unhide
-				the time slider. Drag the slider to choose the beginning year of the time interval.
+				Earthquake data around Turkey of magnitude ≥ 5 since 2000 retrieved from United States
+				Geological Survey (USGS). Polygons represent countries. Turkey and Syria are marked dark
+				red. Each circle represents one earthquake. Hue indicates magnitude. Hover over each
+				earthquake to get a pop-up card about its magnitude and time. Drag, scroll, and pinch to pan
+				and zoom the map. Hover over the bottom right of the map to unhide the time slider. Drag the
+				slider to choose the beginning year of the time interval.
 			</div>
 		</div>
 
@@ -53,13 +53,13 @@
 	<div class="column-2 gap-1">
 		<div class="flex-column justify-between">
 			<div class="flex-item">
-				<p>▼ Frequent subwords in Tweets. Rescue is common theme.</p>
+				<p>▼ Word Cloud From Tweets. Rescue is common theme.</p>
 				<p class="font-5-8">
 					Tweets Feb 6 ~ Feb 16 containing <em>Turkey earthquake</em> or
-					<em>#TurkeySyriaEarthquake</em>. Tokenized with a Hugging Face tokenizer. Trivial subwords
-					and tag words ignored. Hover over each subword to get a pop-up card about it and its
-					number of mentions. Hover over bottom to unhide slider. Slide to choose end of time
-					interval.
+					<em>#TurkeySyriaEarthquake</em> scraped from Twitter using snscrape. Tokenized with a Hugging
+					Face tokenizer. Trivial subwords and tag words ignored. Hover over each subword to get a pop-up
+					card about it and its number of mentions. Hover over bottom to unhide slider. Slide to choose
+					end of time interval.
 				</p>
 				<WordCloud height={h2} width={w2} fill={dark_purple} />
 			</div>
@@ -67,24 +67,22 @@
 				<FrequencyMagnitudeHistogram height={h2} width={w2} fill={dark_purple} />
 				<p>▲ Frequency of Earthquakes by Magnitude</p>
 				<p class="font-5-8">
-					Data on earthquakes was retrieved from United States Geological Survey (USGS) and contains
-					earthquakes since 2000. The heights of the histogram bars represent the number of times an
-					earthquake within the magnitude range occurred. Earthquakes less than magnitude 5.0 were
-					filtered out. Hover over the bars to see the exact count of earthquakes in each range.
+					Same earthquake data as the distribution map but with earthquakes around the globe. The
+					heights of the histogram bars represent the number of times an earthquake within the
+					magnitude range occurred. Hover over the bars to see the exact count of earthquakes in
+					each range.
 				</p>
 			</div>
 		</div>
 
 		<div class="flex-column justify-between">
 			<div class="flex-item">
-				<p>▼ Sentiment of Related Tweets Over Time</p>
+				<p>▼ Box Plot of Sentiment of Related Tweets</p>
 				<p class="font-5-8">
-					Each box plot shows the distribution of sentiment (VADER) of tweets sent on the day of the
-					earthquake, February 6, and the subsequent nine days. Only tweets containing “turkey
-					earthquake” and “#TurkeySyriaEarthquake” were included. Darker boxplots represent a lower
-					average sentiment. It is clear that sentiment becomes more negative as discussion shifts
-					towards the earthquake response. Hover over each box plot to view the average sentiment of
-					the day.
+					Same data as the word cloud. Each box shows the distribution of sentiment (VADER) of
+					tweets for one day. Darker boxes represent a more negative average sentiment. It is clear
+					that sentiment becomes more negative as discussion shifts towards the earthquake response.
+					Hover over each box to view the sentiment details on that day.
 				</p>
 				<SentimentAnalysis height={h2} width={w2} scheme={purple_scheme} />
 			</div>
@@ -92,8 +90,7 @@
 				<Frequency height={h2} width={w2} stroke={dark_purple} />
 				<p>▲ Frequency of Tweets Related to Turkey Earthquake</p>
 				<p class="font-5-8">
-					Based on tweets scraped using snscrape containing “turkey earthquake” and
-					“#TurkeySyriaEarthquake”. X axis represents time, Y axis represents number of tweets on
+					Same data as the word cloud. X axis represents time, Y axis represents number of tweets on
 					each particular day. Though frequency of tweets mentioning earthquake skyrocketed after
 					the disaster struck, it quickly died down. Hover over the line to see key points in the
 					timeline of the earthquake and subsequent response.

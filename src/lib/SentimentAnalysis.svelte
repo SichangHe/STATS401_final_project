@@ -8,8 +8,8 @@
 	export let width = 350;
 	export let height = 250;
 	export let scheme = {
-		a: d3.rgb(238, 130, 238),
-		b: d3.rgb(75, 0, 130)
+		a: 'rgb(238, 130, 238)',
+		b: 'rgb(75, 0, 130)'
 	};
 
 	const barWidth = 10;
