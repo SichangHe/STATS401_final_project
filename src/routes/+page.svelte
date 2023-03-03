@@ -120,6 +120,7 @@
 		color: hsl(300deg, 100%, 15%);
 		font-family: 'PT Serif';
 		height: 29.7cm;
+		position: relative;
 		width: 21cm;
 	}
 	@media print {
@@ -159,8 +160,10 @@
 	}
 
 	.authors {
+		bottom: 0;
 		font-size: 0.55rem;
-		text-align: right;
+		position: absolute;
+		right: 0;
 	}
 
 	.column-2 {
