@@ -88,13 +88,12 @@
 
 	<div class="flex-row justify-between">
 		<div class="flex-item">
-			<p>▼ Frequency of Earthquakes by Magnitude from 2000 to Present</p>
+			<p>▼ Frequency of Earthquakes by Magnitude</p>
 			<p class="font-2-3">
-				Earthquakes of low magnitude are exponentially more common than earthquakes of high magnitude. 
-				Though this analysis only includes earthquakes of magnitude 5.0 or greater, 
-				we expect this correlation to continue. The devastating earthquake that struck Turkey was 
-				truly a statistical anomaly.
-
+				Data on earthquakes was retrieved from United States Geological Survey (USGS) 
+				and contains earthquakes from 2000 to the present day. The heights of the histogram bars represent 
+				the number of times an earthquake within the magnitude range occurred. Earthquakes less than 
+				magnitude 5.0 were filtered out. Hover over the bars to see the exact count of earthquakes in each range.
 			</p>
 			<FrequencyMagnitudeHistogram height={h2} width={w2} fill={dark_purple} />
 		</div>
