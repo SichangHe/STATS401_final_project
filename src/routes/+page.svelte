@@ -64,48 +64,28 @@
 			</div>
 			<div class="flex-item">
 				<FrequencyMagnitudeHistogram height={h2} width={w2} fill={dark_purple} />
-				<p>▲ Frequency of Earthquakes by Magnitude from 2000 to Present</p>
+				<p>▲ Frequency of Earthquakes by Magnitude</p>
 				<p class="font-5-8">
-					Earthquakes of low magnitude are exponentially more common than earthquakes of high
-					magnitude. Though this analysis only includes earthquakes of magnitude 5.0 or greater, we
-					expect this correlation to continue. The devastating earthquake that struck Turkey was
-					truly a statistical anomaly.
+					Data on earthquakes was retrieved from United States Geological Survey (USGS) 
+					and contains earthquakes from 2000 to the present day. 
+					The heights of the histogram bars represent the number of times an earthquake 
+					within the magnitude range occurred. Earthquakes less than magnitude 5.0 were filtered out. 
+					Hover over the bars to see the exact count of earthquakes in each range.
 				</p>
 			</div>
 		</div>
 
-<<<<<<< HEAD
-	<div class="flex-row justify-between">
-		<div class="flex-item">
-			<p>▼ Frequency of Earthquakes by Magnitude</p>
-			<p class="font-2-3">
-				Data on earthquakes was retrieved from United States Geological Survey (USGS) 
-				and contains earthquakes from 2000 to the present day. The heights of the histogram bars represent 
-				the number of times an earthquake within the magnitude range occurred. Earthquakes less than 
-				magnitude 5.0 were filtered out. Hover over the bars to see the exact count of earthquakes in each range.
-			</p>
-			<FrequencyMagnitudeHistogram height={h2} width={w2} fill={dark_purple} />
-		</div>
-		<div class="flex-item">
-			<p>▼ Frequency of Tweets Related to Turkey Earthquake</p>
-			<p class="font-2-3">
-				Frequency of tweets containing “turkey earthquake” and “#TurkeySyriaEarthquake”. 
-				Before the earthquake, baseline discussion of earthquakes was low. Though frequency of 
-				tweets mentioning earthquake skyrocketed after the disaster struck, it quickly died down, 
-				perhaps in part due to the Turkish government making the controversial decision to block 
-				Twitter temporarily on February 8, 2023.
-			</p>
-			<Frequency height={h2} width={w2} stroke={dark_purple} />
-=======
 		<div class="flex-column justify-between">
 			<div class="flex-item">
 				<p>▼ Sentiment of Tweets Related to Turkey Earthquake Over Time</p>
 				<p class="font-5-8">
-					VADER Sentiment is calculated by summing up the sentiment score of each word in a tweet.
-					With 0 representing a neutral tweet, it is clear that discussion on twitter is primarily
-					negative. As the full extent of damage becomes apparent and criticism of the government’s
-					response begin, sentiments stay negative. Perhaps this is why the Turkish government
-					blocked Twitter?
+					Each box plot shows the distribution of sentiment (VADER) of tweets sent 
+					on the day of the earthquake, February 6, and the subsequent nine days. 
+					Only tweets containing “turkey earthquake” and “#TurkeySyriaEarthquake” were included. 
+					Darker boxplots represent a lower average sentiment. 
+					It is clear that sentiment becomes more negative as discussion shifts towards 
+					the earthquake response. Hover over each box plot to view the average sentiment of the day.
+
 				</p>
 				<SentimentAnalysis height={h2} width={w2} scheme={purple_scheme} />
 			</div>
@@ -113,14 +93,13 @@
 				<Frequency height={h2} width={w2} stroke={dark_purple} />
 				<p>▲ Frequency of Tweets Related to Turkey Earthquake</p>
 				<p class="font-5-8">
-					Frequency of tweets containing “turkey earthquake” and “#TurkeySyriaEarthquake”. Before
-					the earthquake, baseline discussion of earthquakes was low. Though frequency of tweets
-					mentioning earthquake skyrocketed after the disaster struck, it quickly died down, perhaps
-					in part due to the Turkish government making the controversial decision to block Twitter
-					temporarily on February 8, 2023.
+					Based on tweets scraped using snscrape containing “turkey earthquake” and “#TurkeySyriaEarthquake”. 
+					X axis represents time, Y axis represents number of tweets on each particular day. 
+					Though frequency of tweets mentioning earthquake skyrocketed after the disaster struck, 
+					it quickly died down. Hover over the line to see key points in the timeline of the 
+					earthquake and subsequent response.
 				</p>
 			</div>
->>>>>>> 690939ef04c3df7b32510879a1a19f3294a3c365
 		</div>
 	</div>
 	<div class="authors">
