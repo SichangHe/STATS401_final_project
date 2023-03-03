@@ -25,16 +25,13 @@
 				Despite many weaker quakes, this area seldom experience such strong ones, thus presumably
 				unprepared.
 			</p>
-			<div class="flex-row justify-between gap-1">
-				<p class="font-5-8">
-					Polygons represent countries. Turkey and Syria are marked dark red. Each circle for one
-					earthquake of magnitude ≥ 5. Hue represent magnitude. Hover on each earthquake to get a
-					pop-up card about its magnitude and time.
-				</p>
-				<p class="font-5-8">
-					Drag, scroll, and pinch to pan and zoom the map. Hover on the bottom right of the map to
-					unhide the time slider. Drag the slider to choose the beginning year of the time interval.
-				</p>
+			<div class="column-2 gap-1 font-5-8">
+				Polygons represent countries. Turkey and Syria are marked dark red. Each circle for one
+				earthquake of magnitude ≥ 5. Hue represent magnitude. Hover on each earthquake to get a
+				pop-up card about its magnitude and time.
+				<br />
+				Drag, scroll, and pinch to pan and zoom the map. Hover on the bottom right of the map to unhide
+				the time slider. Drag the slider to choose the beginning year of the time interval.
 			</div>
 		</div>
 
@@ -53,7 +50,7 @@
 		</div>
 	</div>
 
-	<div class="flex-row justify-between gap-1">
+	<div class="column-2 gap-1">
 		<div class="flex-column justify-between">
 			<div class="flex-item">
 				<p>▼ Frequent subwords in Tweets. Rescue is common theme.</p>
@@ -164,6 +161,10 @@
 	.authors {
 		font-size: 0.55rem;
 		text-align: right;
+	}
+
+	.column-2 {
+		column-count: 2;
 	}
 
 	.flex-column {
