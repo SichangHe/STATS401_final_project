@@ -7,7 +7,11 @@
 	let svg_node: SVGSVGElement;
 	export let width = 350;
 	export let height = 250;
-	export let scheme = d3.schemeBlues[9];
+	export let scheme = {
+		a: d3.rgb(238, 130, 238),
+		b: d3.rgb(75, 0, 130)
+	};
+
 	const barWidth = 10;
 
 	const margin = { top: 20, right: 50, bottom: 20, left: 10 };
@@ -32,7 +36,12 @@
 		}
 
 		// Setup a color scale for filling each box
-		const colorScale = d3.scaleOrdinal(scheme).domain(Object.keys(groupCounts));
+		const maxvalue = 0.3;
+		const minvalue = -0.2;
+
+		const linear = d3.scaleLinear().domain([minvalue, maxvalue]).range([0, 1]);
+
+		const computeColor = d3.interpolate(scheme.a, scheme.b);
 
 		function boxQuartiles(d) {
 			return [d3.quantile(d, 0.25), d3.quantile(d, 0.5), d3.quantile(d, 0.75)];
@@ -72,8 +81,9 @@
 			record['counts'] = groupCount;
 			record['quartile'] = boxQuartiles(groupCount);
 			record['whiskers'] = [localMin, localMax];
-			record['color'] = colorScale(key);
-
+			const t = linear(boxQuartiles(groupCount)[1]);
+			const color = computeColor(t);
+			record['color'] = color.toString();
 			boxPlotData.push(record);
 		}
 
