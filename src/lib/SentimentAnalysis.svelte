@@ -32,15 +32,15 @@
 		}
 
 		// Setup a color scale for filling each box
-		var maxvalue = 0.3;
-		var minvalue = -0.2;
+		const maxvalue = 0.3;
+		const minvalue = -0.2;
 
-		var linear = d3.scaleLinear().domain([minvalue, maxvalue]).range([0, 1]);
+		const linear = d3.scaleLinear().domain([minvalue, maxvalue]).range([0, 1]);
 
-		var a = d3.rgb(238, 130, 238);
-		var b = d3.rgb(75, 0, 130);
+		const a = d3.rgb(238, 130, 238);
+		const b = d3.rgb(75, 0, 130);
 
-		var computeColor = d3.interpolate(a, b);
+		const computeColor = d3.interpolate(a, b);
 
 		function boxQuartiles(d) {
 			return [d3.quantile(d, 0.25), d3.quantile(d, 0.5), d3.quantile(d, 0.75)];
@@ -80,8 +80,8 @@
 			record['counts'] = groupCount;
 			record['quartile'] = boxQuartiles(groupCount);
 			record['whiskers'] = [localMin, localMax];
-			var t = linear(boxQuartiles(groupCount)[1]);
-			var color = computeColor(t);
+			const t = linear(boxQuartiles(groupCount)[1]);
+			const color = computeColor(t);
 			record['color'] = color.toString();
 			boxPlotData.push(record);
 		}
