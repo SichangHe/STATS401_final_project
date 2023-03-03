@@ -36,12 +36,15 @@
 		let svg = d3.select(svg_node);
 		svg
 			.append('g')
-			.attr('transform', 'translate(' + margin.left + ',' + heightWithMargin + ')')
+			.attr(
+				'transform',
+				'translate(' + margin.left + ',' + (heightWithMargin + margin.top + 12) + ')'
+			)
 			.call(d3.axisBottom(x));
 
 		svg
 			.append('g')
-			.attr('transform', 'translate(' + margin.left + ',' + '0)')
+			.attr('transform', 'translate(' + margin.left + ',' + (margin.top + 12) + ')')
 			.call(d3.axisLeft(y).ticks(8));
 		svg
 			.selectAll('rect')
@@ -49,7 +52,7 @@
 			.enter()
 			.append('rect')
 			.attr('x', margin.left)
-			.attr('y', 0)
+			.attr('y', margin.top + 12)
 			.attr('transform', function (d) {
 				return 'translate(' + x(d.x0) + ',' + y(d.length) + ')';
 			})
@@ -62,13 +65,13 @@
 			.style('fill', fill);
 		svg
 			.append('text')
-			.attr('x', margin.left + 10)
+			.attr('x', margin.left - 30)
 			.attr('y', margin.top + 5)
 			.text('frequency');
 		svg
 			.append('text')
-			.attr('x', widthWithMargin + margin.left - 70)
-			.attr('y', heightWithMargin - 10)
+			.attr('x', widthWithMargin + margin.left - 50)
+			.attr('y', heightWithMargin + margin.top + 5)
 			.text('magnitude');
 	});
 </script>
