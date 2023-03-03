@@ -5,15 +5,15 @@
 		<meta name="viewport" content="width=device-width" />
 		<meta http-equiv="content-security-policy" content="">
 		<link href="/STATS401_final_project/_app/immutable/assets/_page.a65251e1.css" rel="stylesheet">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/start.5828adc5.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/start.8294b51c.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/index.ee79a50c.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/singletons.14fbe3f3.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/paths.a63d1a03.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/app.556afcef.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/singletons.9c379095.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/paths.db1e61df.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/app.313ec179.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/layout.svelte.c4947c97.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/_layout.ts.984db11e.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/_layout.da46b06b.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/_page.svelte.f6eb6c25.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/_page.svelte.859cfdb3.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
@@ -29,10 +29,10 @@
 				unprepared.
 			</p>
 			<div class="column-2 gap-1 font-5-8 svelte-niwobp">Polygons represent countries. Turkey and Syria are marked dark red. Each circle for one
-				earthquake of magnitude ≥ 5. Hue represent magnitude. Hover on each earthquake to get a
+				earthquake of magnitude ≥ 5. Hue represent magnitude. Hover over each earthquake to get a
 				pop-up card about its magnitude and time.
 				<br class="svelte-niwobp">
-				Drag, scroll, and pinch to pan and zoom the map. Hover on the bottom right of the map to unhide
+				Drag, scroll, and pinch to pan and zoom the map. Hover over the bottom right of the map to unhide
 				the time slider. Drag the slider to choose the beginning year of the time interval.
 			</div></div>
 
@@ -45,9 +45,10 @@
 
 	<div class="column-2 gap-1 svelte-niwobp"><div class="flex-column justify-between svelte-niwobp"><div class="flex-item svelte-niwobp"><p class="svelte-niwobp">▼ Frequent subwords in Tweets. Rescue is common theme.</p>
 				<p class="font-5-8 svelte-niwobp">Tweets Feb 6 ~ Feb 16 containing <em class="svelte-niwobp">Turkey earthquake</em> or
-					<em class="svelte-niwobp">#TurkeySyriaEarthquake</em>. Tokenized with Hugging Face tokenizer. Trivial subwords
-					and tag words ignored. Hover each subword to get a pop-up card about it and its number of
-					mentions. Hover on bottom to unhide slider. Slide to choose end of time interval.
+					<em class="svelte-niwobp">#TurkeySyriaEarthquake</em>. Tokenized with a Hugging Face tokenizer. Trivial subwords
+					and tag words ignored. Hover over each subword to get a pop-up card about it and its
+					number of mentions. Hover over bottom to unhide slider. Slide to choose end of time
+					interval.
 				</p>
 				
 
@@ -57,28 +58,29 @@
 	<p>undefined</p>
 </div></div>
 			<div class="flex-item svelte-niwobp"><svg width="350" height="200"></svg>
-				<p class="svelte-niwobp">▲ Frequency of Earthquakes by Magnitude from 2000 to Present</p>
-				<p class="font-5-8 svelte-niwobp">Earthquakes of low magnitude are exponentially more common than earthquakes of high
-					magnitude. Though this analysis only includes earthquakes of magnitude 5.0 or greater, we
-					expect this correlation to continue. The devastating earthquake that struck Turkey was
-					truly a statistical anomaly.
+				<p class="svelte-niwobp">▲ Frequency of Earthquakes by Magnitude</p>
+				<p class="font-5-8 svelte-niwobp">Data on earthquakes was retrieved from United States Geological Survey (USGS) and contains
+					earthquakes since 2000. The heights of the histogram bars represent the number of times an
+					earthquake within the magnitude range occurred. Earthquakes less than magnitude 5.0 were
+					filtered out. Hover over the bars to see the exact count of earthquakes in each range.
 				</p></div></div>
 
-		<div class="flex-column justify-between svelte-niwobp"><div class="flex-item svelte-niwobp"><p class="svelte-niwobp">▼ Sentiment of Tweets Related to Turkey Earthquake Over Time</p>
-				<p class="font-5-8 svelte-niwobp">VADER Sentiment is calculated by summing up the sentiment score of each word in a tweet.
-					With 0 representing a neutral tweet, it is clear that discussion on twitter is primarily
-					negative. As the full extent of damage becomes apparent and criticism of the government’s
-					response begin, sentiments stay negative. Perhaps this is why the Turkish government
-					blocked Twitter?
+		<div class="flex-column justify-between svelte-niwobp"><div class="flex-item svelte-niwobp"><p class="svelte-niwobp">▼ Sentiment of Related Tweets Over Time</p>
+				<p class="font-5-8 svelte-niwobp">Each box plot shows the distribution of sentiment (VADER) of tweets sent on the day of the
+					earthquake, February 6, and the subsequent nine days. Only tweets containing “turkey
+					earthquake” and “#TurkeySyriaEarthquake” were included. Darker boxplots represent a lower
+					average sentiment. It is clear that sentiment becomes more negative as discussion shifts
+					towards the earthquake response. Hover over each box plot to view the average sentiment of
+					the day.
 				</p>
 				<svg height="200" width="350"></svg></div>
 			<div class="flex-item svelte-niwobp"><svg></svg>
 				<p class="svelte-niwobp">▲ Frequency of Tweets Related to Turkey Earthquake</p>
-				<p class="font-5-8 svelte-niwobp">Frequency of tweets containing “turkey earthquake” and “#TurkeySyriaEarthquake”. Before
-					the earthquake, baseline discussion of earthquakes was low. Though frequency of tweets
-					mentioning earthquake skyrocketed after the disaster struck, it quickly died down, perhaps
-					in part due to the Turkish government making the controversial decision to block Twitter
-					temporarily on February 8, 2023.
+				<p class="font-5-8 svelte-niwobp">Based on tweets scraped using snscrape containing “turkey earthquake” and
+					“#TurkeySyriaEarthquake”. X axis represents time, Y axis represents number of tweets on
+					each particular day. Though frequency of tweets mentioning earthquake skyrocketed after
+					the disaster struck, it quickly died down. Hover over the line to see key points in the
+					timeline of the earthquake and subsequent response.
 				</p></div></div></div>
 	<div class="authors svelte-niwobp"><p class="svelte-niwobp">By Steven Hé (Sīchàng), Gezhi Wang, Yuxuan Wang, Neil Kelly for STATS 401.
 			<a href="https://github.com/SichangHe/STATS401_final_project" class="svelte-niwobp"><img src="/STATS401_final_project/gh-icon.svg" alt="GitHub icon." class="gh-icon svelte-niwobp"></a></p></div>
@@ -88,7 +90,7 @@
 			
 			<script>
 				{
-					__sveltekit_1wejyv = {
+					__sveltekit_o56jdj = {
 						env: {},
 						assets: "/STATS401_final_project",
 						element: document.currentScript.parentElement
@@ -97,10 +99,10 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("/STATS401_final_project/_app/immutable/entry/start.5828adc5.js"),
-						import("/STATS401_final_project/_app/immutable/entry/app.556afcef.js")
+						import("/STATS401_final_project/_app/immutable/entry/start.8294b51c.js"),
+						import("/STATS401_final_project/_app/immutable/entry/app.313ec179.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_1wejyv.element, {
+						kit.start(app, __sveltekit_o56jdj.element, {
 							node_ids: [0, 2],
 							data,
 							form: null,
