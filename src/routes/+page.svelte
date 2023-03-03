@@ -26,7 +26,7 @@
 				Despite many weaker quakes, this area seldom experience such strong ones, thus presumably
 				unprepared.
 			</p>
-			<div class="flex-row justify-between">
+			<div class="flex-row justify-between gap-1">
 				<p class="font-5-8">
 					Polygons represent countries. Turkey and Syria are marked dark red. Each circle for one
 					earthquake of magnitude ≥ 5. Hue represent magnitude. Hover on each earthquake to get a
@@ -54,7 +54,7 @@
 		</div>
 	</div>
 
-	<div class="flex-row justify-between">
+	<div class="flex-row justify-between gap-1">
 		<div class="flex-item">
 			<p>▼ Frequent subwords in Tweets. Rescue is common theme.</p>
 			<p class="font-5-8">
@@ -78,7 +78,7 @@
 		</div>
 	</div>
 
-	<div class="flex-row justify-between">
+	<div class="flex-row justify-between gap-1">
 		<div class="flex-item">
 			<p>▼ Frequency of Earthquakes by Magnitude from 2000 to Present</p>
 			<p class="font-5-8">
@@ -172,6 +172,10 @@
 	.flex-row {
 		display: flex;
 		flex-direction: row;
+	}
+
+	.gap-1 {
+		gap: 1rem;
 	}
 
 	.justify-center {
