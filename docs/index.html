@@ -5,15 +5,15 @@
 		<meta name="viewport" content="width=device-width" />
 		<meta http-equiv="content-security-policy" content="">
 		<link href="/STATS401_final_project/_app/immutable/assets/_page.a65251e1.css" rel="stylesheet">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/start.8294b51c.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/start.b9e4f90b.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/index.ee79a50c.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/singletons.9c379095.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/paths.db1e61df.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/app.313ec179.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/singletons.fb2dfa51.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/paths.24c6c94f.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/app.c9737f11.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/layout.svelte.c4947c97.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/_layout.ts.984db11e.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/_layout.da46b06b.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/_page.svelte.859cfdb3.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/_page.svelte.0fd8ecea.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
@@ -28,12 +28,12 @@
 				Despite many weaker quakes, this area seldom experience such strong ones, thus presumably
 				unprepared.
 			</p>
-			<div class="column-2 gap-1 font-5-8 svelte-niwobp">Polygons represent countries. Turkey and Syria are marked dark red. Each circle for one
-				earthquake of magnitude ≥ 5. Hue represent magnitude. Hover over each earthquake to get a
-				pop-up card about its magnitude and time.
-				<br class="svelte-niwobp">
-				Drag, scroll, and pinch to pan and zoom the map. Hover over the bottom right of the map to unhide
-				the time slider. Drag the slider to choose the beginning year of the time interval.
+			<div class="column-2 gap-1 font-5-8 svelte-niwobp">Earthquake data around Turkey of magnitude ≥ 5 since 2000 retrieved from United States
+				Geological Survey (USGS). Polygons represent countries. Turkey and Syria are marked dark
+				red. Each circle represents one earthquake. Hue indicates magnitude. Hover over each
+				earthquake to get a pop-up card about its magnitude and time. Drag, scroll, and pinch to pan
+				and zoom the map. Hover over the bottom right of the map to unhide the time slider. Drag the
+				slider to choose the beginning year of the time interval.
 			</div></div>
 
 		<div class="flex-row justify-between svelte-niwobp"><div class="svelte-niwobp"><h1 class="svelte-niwobp">Analysis of 2023 Turkey-Syria Earthquake</h1>
@@ -43,12 +43,12 @@
 			<div class="flex-column justify-center svelte-niwobp"><img src="/STATS401_final_project/qr_code.svg" alt="QR code to this webpage." class="qr-code svelte-niwobp">
 				<span class="svelte-niwobp">Scan to interact! </span></div></div></div>
 
-	<div class="column-2 gap-1 svelte-niwobp"><div class="flex-column justify-between svelte-niwobp"><div class="flex-item svelte-niwobp"><p class="svelte-niwobp">▼ Frequent subwords in Tweets. Rescue is common theme.</p>
+	<div class="column-2 gap-1 svelte-niwobp"><div class="flex-column justify-between svelte-niwobp"><div class="flex-item svelte-niwobp"><p class="svelte-niwobp">▼ Word Cloud From Tweets. Rescue is common theme.</p>
 				<p class="font-5-8 svelte-niwobp">Tweets Feb 6 ~ Feb 16 containing <em class="svelte-niwobp">Turkey earthquake</em> or
-					<em class="svelte-niwobp">#TurkeySyriaEarthquake</em>. Tokenized with a Hugging Face tokenizer. Trivial subwords
-					and tag words ignored. Hover over each subword to get a pop-up card about it and its
-					number of mentions. Hover over bottom to unhide slider. Slide to choose end of time
-					interval.
+					<em class="svelte-niwobp">#TurkeySyriaEarthquake</em> scraped from Twitter using snscrape. Tokenized with a Hugging
+					Face tokenizer. Trivial subwords and tag words ignored. Hover over each subword to get a pop-up
+					card about it and its number of mentions. Hover over bottom to unhide slider. Slide to choose
+					end of time interval.
 				</p>
 				
 
@@ -59,25 +59,22 @@
 </div></div>
 			<div class="flex-item svelte-niwobp"><svg width="350" height="200"></svg>
 				<p class="svelte-niwobp">▲ Frequency of Earthquakes by Magnitude</p>
-				<p class="font-5-8 svelte-niwobp">Data on earthquakes was retrieved from United States Geological Survey (USGS) and contains
-					earthquakes since 2000. The heights of the histogram bars represent the number of times an
-					earthquake within the magnitude range occurred. Earthquakes less than magnitude 5.0 were
-					filtered out. Hover over the bars to see the exact count of earthquakes in each range.
+				<p class="font-5-8 svelte-niwobp">Same earthquake data as the distribution map but with earthquakes around the globe. The
+					heights of the histogram bars represent the number of times an earthquake within the
+					magnitude range occurred. Hover over the bars to see the exact count of earthquakes in
+					each range.
 				</p></div></div>
 
-		<div class="flex-column justify-between svelte-niwobp"><div class="flex-item svelte-niwobp"><p class="svelte-niwobp">▼ Sentiment of Related Tweets Over Time</p>
-				<p class="font-5-8 svelte-niwobp">Each box plot shows the distribution of sentiment (VADER) of tweets sent on the day of the
-					earthquake, February 6, and the subsequent nine days. Only tweets containing “turkey
-					earthquake” and “#TurkeySyriaEarthquake” were included. Darker boxplots represent a lower
-					average sentiment. It is clear that sentiment becomes more negative as discussion shifts
-					towards the earthquake response. Hover over each box plot to view the average sentiment of
-					the day.
+		<div class="flex-column justify-between svelte-niwobp"><div class="flex-item svelte-niwobp"><p class="svelte-niwobp">▼ Box Plot of Sentiment of Related Tweets</p>
+				<p class="font-5-8 svelte-niwobp">Same data as the word cloud. Each box shows the distribution of sentiment (VADER) of
+					tweets for one day. Darker boxes represent a more negative average sentiment. It is clear
+					that sentiment becomes more negative as discussion shifts towards the earthquake response.
+					Hover over each box to view the sentiment details on that day.
 				</p>
 				<svg height="200" width="350"></svg></div>
 			<div class="flex-item svelte-niwobp"><svg></svg>
 				<p class="svelte-niwobp">▲ Frequency of Tweets Related to Turkey Earthquake</p>
-				<p class="font-5-8 svelte-niwobp">Based on tweets scraped using snscrape containing “turkey earthquake” and
-					“#TurkeySyriaEarthquake”. X axis represents time, Y axis represents number of tweets on
+				<p class="font-5-8 svelte-niwobp">Same data as the word cloud. X axis represents time, Y axis represents number of tweets on
 					each particular day. Though frequency of tweets mentioning earthquake skyrocketed after
 					the disaster struck, it quickly died down. Hover over the line to see key points in the
 					timeline of the earthquake and subsequent response.
@@ -90,7 +87,7 @@
 			
 			<script>
 				{
-					__sveltekit_o56jdj = {
+					__sveltekit_157vc1d = {
 						env: {},
 						assets: "/STATS401_final_project",
 						element: document.currentScript.parentElement
@@ -99,10 +96,10 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("/STATS401_final_project/_app/immutable/entry/start.8294b51c.js"),
-						import("/STATS401_final_project/_app/immutable/entry/app.313ec179.js")
+						import("/STATS401_final_project/_app/immutable/entry/start.b9e4f90b.js"),
+						import("/STATS401_final_project/_app/immutable/entry/app.c9737f11.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_o56jdj.element, {
+						kit.start(app, __sveltekit_157vc1d.element, {
 							node_ids: [0, 2],
 							data,
 							form: null,
