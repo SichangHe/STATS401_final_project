@@ -30,7 +30,7 @@
 				<p class="font-2-3">
 					Polygons represent countries. Turkey and Syria are marked dark red.
 					<br />
-					Each circle represents one earthquake with magnitude at least 5.
+					Each circle for one earthquake of magnitude ≥ 5. Hue represent magnitude.
 					<br />
 					Hover on each earthquake to get a pop-up card about its magnitude and time.
 				</p>
@@ -61,7 +61,17 @@
 
 	<div class="flex-row justify-between">
 		<div class="flex-item">
-			<p>▼ Frequent word fragments in Tweets. Words related to rescues are most common.</p>
+			<p>▼ Frequent subwords in Tweets. Rescue is common theme.</p>
+			<p class="font-2-3">
+				Tweets Feb 6 ~ Feb 16 containing <em>Turkey earthquake</em> or
+				<em>#TurkeySyriaEarthquake</em>.
+				<br />
+				Tokenized with Hugging Face tokenizer. Trivial subwords and tag words ignored.
+				<br />
+                Hover each subword to get a pop-up card about it and its number of mentions.
+				<br />
+                Hover on bottom to unhide slider. Slide to choose end of time interval.
+			</p>
 			<WordCloud height={h2} width={w2} fill={dark_purple} />
 		</div>
 		<div class="flex-item">
