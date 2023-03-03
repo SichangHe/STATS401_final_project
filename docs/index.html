@@ -5,15 +5,15 @@
 		<meta name="viewport" content="width=device-width" />
 		<meta http-equiv="content-security-policy" content="">
 		<link href="/STATS401_final_project/_app/immutable/assets/_page.b8733e82.css" rel="stylesheet">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/start.ffbbf1df.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/start.b85069c5.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/index.ee79a50c.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/singletons.c95d5c53.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/paths.be4ce2c7.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/app.245dd374.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/singletons.0102b7d5.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/paths.02c3d44e.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/app.fa699534.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/layout.svelte.c4947c97.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/_layout.ts.984db11e.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/_layout.da46b06b.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/_page.svelte.401ec773.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/_page.svelte.1625110e.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
@@ -30,7 +30,7 @@
 			</p>
 			<div class="flex-row justify-between svelte-6czv9b"><p class="font-2-3 svelte-6czv9b">Polygons represent countries. Turkey and Syria are marked dark red.
 					<br class="svelte-6czv9b">
-					Each circle represents one earthquake with magnitude at least 5.
+					Each circle for one earthquake of magnitude ≥ 5. Hue represent magnitude.
 					<br class="svelte-6czv9b">
 					Hover on each earthquake to get a pop-up card about its magnitude and time.
 				</p>
@@ -48,8 +48,20 @@
 			<div class="flex-column justify-center svelte-6czv9b"><img src="/STATS401_final_project/qr_code.svg" alt="QR code to this webpage." class="qr-code svelte-6czv9b">
 				<span class="svelte-6czv9b">Scan to interact! </span></div></div></div>
 
-	<div class="flex-row justify-between svelte-6czv9b"><div class="flex-item svelte-6czv9b"><p class="svelte-6czv9b">▼ Frequent word fragments in Tweets. Words related to rescues are most common.</p>
-			<svg height="250" width="350"></svg>
+	<div class="flex-row justify-between svelte-6czv9b"><div class="flex-item svelte-6czv9b"><p class="svelte-6czv9b">▼ Frequent subwords in Tweets. Rescue is common theme.</p>
+			<p class="font-2-3 svelte-6czv9b">Tweets Feb 6 ~ Feb 16 containing <em class="svelte-6czv9b">Turkey earthquake</em> or
+				<em class="svelte-6czv9b">#TurkeySyriaEarthquake</em>.
+				<br class="svelte-6czv9b">
+				Tokenized with Hugging Face tokenizer. Trivial subwords and tag words ignored.
+				<br class="svelte-6czv9b">
+                Hover each subword to get a pop-up card about it and its number of mentions.
+				<br class="svelte-6czv9b">
+                Hover on bottom to unhide slider. Slide to choose end of time interval.
+			</p>
+			
+
+
+<svg height="250" width="350"></svg>
 <div style="visibility: hidden; left: undefinedpx; top: undefinedpx;" class="svelte-lcowg8"><h2 style="background-color: undefined;">undefined</h2>
 	<p>undefined</p>
 </div></div>
@@ -68,7 +80,7 @@
 			
 			<script>
 				{
-					__sveltekit_5drc0p = {
+					__sveltekit_ppnbx0 = {
 						env: {},
 						assets: "/STATS401_final_project",
 						element: document.currentScript.parentElement
@@ -77,10 +89,10 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("/STATS401_final_project/_app/immutable/entry/start.ffbbf1df.js"),
-						import("/STATS401_final_project/_app/immutable/entry/app.245dd374.js")
+						import("/STATS401_final_project/_app/immutable/entry/start.b85069c5.js"),
+						import("/STATS401_final_project/_app/immutable/entry/app.fa699534.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_5drc0p.element, {
+						kit.start(app, __sveltekit_ppnbx0.element, {
 							node_ids: [0, 2],
 							data,
 							form: null,
