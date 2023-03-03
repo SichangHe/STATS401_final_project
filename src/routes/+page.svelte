@@ -17,7 +17,7 @@
 	const purple_scheme7 = gen_purple_scheme(7);
 </script>
 
-<article class="flex-column justify-between font-7-8">
+<article class="flex-column font-7-8">
 	<div class="dark flex-column">
 		<div class="flex-item">
 			<EurasiaMap />
@@ -55,50 +55,52 @@
 	</div>
 
 	<div class="flex-row justify-between gap-1">
-		<div class="flex-item">
-			<p>▼ Frequent subwords in Tweets. Rescue is common theme.</p>
-			<p class="font-5-8">
-				Tweets Feb 6 ~ Feb 16 containing <em>Turkey earthquake</em> or
-				<em>#TurkeySyriaEarthquake</em>. Tokenized with Hugging Face tokenizer. Trivial subwords and
-				tag words ignored. Hover each subword to get a pop-up card about it and its number of
-				mentions. Hover on bottom to unhide slider. Slide to choose end of time interval.
-			</p>
-			<WordCloud height={h2} width={w2} fill={dark_purple} />
+		<div class="flex-column justify-between">
+			<div class="flex-item">
+				<p>▼ Frequent subwords in Tweets. Rescue is common theme.</p>
+				<p class="font-5-8">
+					Tweets Feb 6 ~ Feb 16 containing <em>Turkey earthquake</em> or
+					<em>#TurkeySyriaEarthquake</em>. Tokenized with Hugging Face tokenizer. Trivial subwords
+					and tag words ignored. Hover each subword to get a pop-up card about it and its number of
+					mentions. Hover on bottom to unhide slider. Slide to choose end of time interval.
+				</p>
+				<WordCloud height={h2} width={w2} fill={dark_purple} />
+			</div>
+			<div class="flex-item">
+				<FrequencyMagnitudeHistogram height={h2} width={w2} fill={dark_purple} />
+				<p>▲ Frequency of Earthquakes by Magnitude from 2000 to Present</p>
+				<p class="font-5-8">
+					Earthquakes of low magnitude are exponentially more common than earthquakes of high
+					magnitude. Though this analysis only includes earthquakes of magnitude 5.0 or greater, we
+					expect this correlation to continue. The devastating earthquake that struck Turkey was
+					truly a statistical anomaly.
+				</p>
+			</div>
 		</div>
-		<div class="flex-item">
-			<p>▼ Sentiment of Tweets Related to Turkey Earthquake Over Time</p>
-			<p class="font-5-8">
-				VADER Sentiment is calculated by summing up the sentiment score of each word in a tweet.
-				With 0 representing a neutral tweet, it is clear that discussion on twitter is primarily
-				negative. As the full extent of damage becomes apparent and criticism of the government’s
-				response begin, sentiments stay negative. Perhaps this is why the Turkish government blocked
-				Twitter?
-			</p>
-			<SentimentAnalysis height={h2} width={w2} scheme={purple_scheme7} />
-		</div>
-	</div>
 
-	<div class="flex-row justify-between gap-1">
-		<div class="flex-item">
-			<p>▼ Frequency of Earthquakes by Magnitude from 2000 to Present</p>
-			<p class="font-5-8">
-				Earthquakes of low magnitude are exponentially more common than earthquakes of high
-				magnitude. Though this analysis only includes earthquakes of magnitude 5.0 or greater, we
-				expect this correlation to continue. The devastating earthquake that struck Turkey was truly
-				a statistical anomaly.
-			</p>
-			<FrequencyMagnitudeHistogram height={h2} width={w2} fill={dark_purple} />
-		</div>
-		<div class="flex-item">
-			<p>▼ Frequency of Tweets Related to Turkey Earthquake</p>
-			<p class="font-5-8">
-				Frequency of tweets containing “turkey earthquake” and “#TurkeySyriaEarthquake”. Before the
-				earthquake, baseline discussion of earthquakes was low. Though frequency of tweets
-				mentioning earthquake skyrocketed after the disaster struck, it quickly died down, perhaps
-				in part due to the Turkish government making the controversial decision to block Twitter
-				temporarily on February 8, 2023.
-			</p>
-			<Frequency height={h2} width={w2} stroke={dark_purple} />
+		<div class="flex-column justify-between">
+			<div class="flex-item">
+				<p>▼ Sentiment of Tweets Related to Turkey Earthquake Over Time</p>
+				<p class="font-5-8">
+					VADER Sentiment is calculated by summing up the sentiment score of each word in a tweet.
+					With 0 representing a neutral tweet, it is clear that discussion on twitter is primarily
+					negative. As the full extent of damage becomes apparent and criticism of the government’s
+					response begin, sentiments stay negative. Perhaps this is why the Turkish government
+					blocked Twitter?
+				</p>
+				<SentimentAnalysis height={h2} width={w2} scheme={purple_scheme7} />
+			</div>
+			<div class="flex-item">
+				<Frequency height={h2} width={w2} stroke={dark_purple} />
+				<p>▲ Frequency of Tweets Related to Turkey Earthquake</p>
+				<p class="font-5-8">
+					Frequency of tweets containing “turkey earthquake” and “#TurkeySyriaEarthquake”. Before
+					the earthquake, baseline discussion of earthquakes was low. Though frequency of tweets
+					mentioning earthquake skyrocketed after the disaster struck, it quickly died down, perhaps
+					in part due to the Turkish government making the controversial decision to block Twitter
+					temporarily on February 8, 2023.
+				</p>
+			</div>
 		</div>
 	</div>
 	<div class="authors">
