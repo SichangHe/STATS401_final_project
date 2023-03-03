@@ -5,15 +5,15 @@
 		<meta name="viewport" content="width=device-width" />
 		<meta http-equiv="content-security-policy" content="">
 		<link href="/STATS401_final_project/_app/immutable/assets/_page.b8733e82.css" rel="stylesheet">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/start.b85069c5.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/start.0a6962d7.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/index.ee79a50c.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/singletons.0102b7d5.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/paths.02c3d44e.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/app.fa699534.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/singletons.6d4de60e.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/paths.9160d514.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/app.9c995cae.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/layout.svelte.c4947c97.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/_layout.ts.984db11e.js">
 		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/chunks/_layout.da46b06b.js">
-		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/_page.svelte.1625110e.js">
+		<link rel="modulepreload" href="/STATS401_final_project/_app/immutable/entry/_page.svelte.f7838301.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
@@ -65,12 +65,29 @@
 <div style="visibility: hidden; left: undefinedpx; top: undefinedpx;" class="svelte-lcowg8"><h2 style="background-color: undefined;">undefined</h2>
 	<p>undefined</p>
 </div></div>
-		<div class="flex-item svelte-6czv9b"><p class="svelte-6czv9b">Demo sentiment analysis:</p>
+		<div class="flex-item svelte-6czv9b"><p class="svelte-6czv9b">▼ Sentiment of Tweets Related to Turkey Earthquake Over Time</p>
+			<p class="font-2-3 svelte-6czv9b">VADER Sentiment is calculated by summing up the sentiment score of each word in a tweet. 
+				With 0 representing a neutral tweet, it is clear that discussion on twitter is primarily negative. 
+				As the full extent of damage becomes apparent and criticism of the government’s response begin, 
+				sentiments stay negative. Perhaps this is why the Turkish government blocked Twitter?
+			</p>
 			<svg height="250" width="350"></svg></div></div>
 
-	<div class="flex-row justify-between svelte-6czv9b"><div class="flex-item svelte-6czv9b"><p class="svelte-6czv9b">Frequence Magnitude Histogram:</p>
+	<div class="flex-row justify-between svelte-6czv9b"><div class="flex-item svelte-6czv9b"><p class="svelte-6czv9b">▼ Frequency of Earthquakes by Magnitude from 2000 to Present</p>
+			<p class="font-2-3 svelte-6czv9b">Earthquakes of low magnitude are exponentially more common than earthquakes of high magnitude. 
+				Though this analysis only includes earthquakes of magnitude 5.0 or greater, 
+				we expect this correlation to continue. The devastating earthquake that struck Turkey was 
+				truly a statistical anomaly.
+
+			</p>
 			<svg width="350" height="250"></svg></div>
-		<div class="flex-item svelte-6czv9b"><p class="svelte-6czv9b">Turkish government blocked Twitter on Feb 8. What effects did it bring?</p>
+		<div class="flex-item svelte-6czv9b"><p class="svelte-6czv9b">▼ Frequency of Tweets Related to Turkey Earthquake</p>
+			<p class="font-2-3 svelte-6czv9b">Frequency of tweets containing “turkey earthquake” and “#TurkeySyriaEarthquake”. 
+				Before the earthquake, baseline discussion of earthquakes was low. Though frequency of 
+				tweets mentioning earthquake skyrocketed after the disaster struck, it quickly died down, 
+				perhaps in part due to the Turkish government making the controversial decision to block 
+				Twitter temporarily on February 8, 2023.
+			</p>
 			<svg></svg></div></div>
 	<div class="authors svelte-6czv9b"><p class="svelte-6czv9b">By Steven Hé (Sīchàng), Gezhi Wang, Yuxuan Wang, Neil Kelly for STATS 401.
 			<a href="https://github.com/SichangHe/STATS401_final_project" class="svelte-6czv9b"><img src="/STATS401_final_project/gh-icon.svg" alt="GitHub icon." class="gh-icon svelte-6czv9b"></a></p></div>
@@ -80,7 +97,7 @@
 			
 			<script>
 				{
-					__sveltekit_ppnbx0 = {
+					__sveltekit_2x7nkr = {
 						env: {},
 						assets: "/STATS401_final_project",
 						element: document.currentScript.parentElement
@@ -89,10 +106,10 @@
 					const data = [null,null];
 
 					Promise.all([
-						import("/STATS401_final_project/_app/immutable/entry/start.b85069c5.js"),
-						import("/STATS401_final_project/_app/immutable/entry/app.fa699534.js")
+						import("/STATS401_final_project/_app/immutable/entry/start.0a6962d7.js"),
+						import("/STATS401_final_project/_app/immutable/entry/app.9c995cae.js")
 					]).then(([kit, app]) => {
-						kit.start(app, __sveltekit_ppnbx0.element, {
+						kit.start(app, __sveltekit_2x7nkr.element, {
 							node_ids: [0, 2],
 							data,
 							form: null,
