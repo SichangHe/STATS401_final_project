@@ -22,10 +22,26 @@
 		<div class="flex-item">
 			<EurasiaMap />
 			<p>
-				▲ Earthquake distribution 2000 ~ 2023. Two reddest points in the center are recent.
+				▲ Earthquake distribution 2000 ~ 2023. Two reddest points in the center took place on Feb 6.
 				<br />
 				Despite many weaker quakes, this area seldom experience such strong ones, thus presumably unprepared.
 			</p>
+			<div class="flex-row justify-between">
+				<p class="font-2-3">
+					Polygons represent countries. Turkey and Syria are marked dark red.
+					<br />
+					Each circle represents one earthquake with magnitude at least 5.
+					<br />
+					Hover on each earthquake to get a pop-up card about its magnitude and time.
+				</p>
+				<p class="font-2-3">
+					Drag, scroll, and pinch to pan and zoom the map.
+					<br />
+					Hover on the bottom right of the map to unhide the time slider.
+					<br />
+					Drag the slider to choose the beginning year of the time interval.
+				</p>
+			</div>
 		</div>
 
 		<div class="flex-row justify-between">
@@ -142,6 +158,10 @@
 	}
 	.justify-between {
 		justify-content: space-between;
+	}
+
+	.font-2-3 {
+		font-size: 0.75rem;
 	}
 
 	@media print {
