@@ -51,7 +51,7 @@
 		const xScale = d3
 			.scalePoint()
 			.domain(Object.keys(groupCounts))
-			.rangeRound([0, widthWithMargin])
+			.rangeRound([-10, widthWithMargin])
 			.padding(0.5);
 
 		// Compute a global y scale based on the global counts
