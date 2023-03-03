@@ -24,7 +24,7 @@
 	const filter_quakes = (begin: Date) => quakes.filter((q: Quake) => q.time > begin);
 
 	const width = 793;
-	const height = 250;
+	const height = 290;
 	const countries = ['Turkey', 'Syria'];
 	const pale_red_gray = 'hsl(0 30% 10%)';
 	const pale_green_gray = 'hsl(120deg 10% 10%)';
@@ -77,7 +77,7 @@
 	const projection = d3
 		.geoNaturalEarth1()
 		.scale((width * 3) / 4)
-		.translate([width / 5, height * 2.1]);
+		.translate([width / 5, height * 1.9]);
 
 	const color_scale = d3
 		.scaleLinear()

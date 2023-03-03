@@ -7,8 +7,8 @@
 
 	import { base } from '$app/paths';
 
-	const h2 = 200;
-	const w2 = 350;
+	const h2 = 220;
+	const w2 = 380;
 	const dark_purple = 'hsl(300deg, 90%, 40%)';
 	const purple_scheme = {
 		a: 'hsl(300deg, 90%, 80%)',
@@ -29,9 +29,9 @@
 				Earthquake data around Turkey of magnitude ≥ 5 since 2000 retrieved from United States
 				Geological Survey (USGS). Polygons represent countries. Turkey and Syria are marked dark
 				red. Each circle represents one earthquake. Hue indicates magnitude. Hover over each
-				earthquake to get a pop-up card about its magnitude and time. Drag, scroll, and pinch to pan
-				and zoom the map. Hover over the bottom right of the map to unhide the time slider. Drag the
-				slider to choose the beginning year of the time interval.
+				earthquake for its magnitude and time. Drag, scroll, and pinch to pan and zoom the map.
+				Hover over the bottom right of the map to unhide the time slider. Drag the slider to choose
+				the beginning year of the time interval.
 			</div>
 		</div>
 
