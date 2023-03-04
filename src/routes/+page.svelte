@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	import EurasiaMap from '$lib/EurasiaMap.svelte';
 	import WordCloud from '$lib/WordCloud.svelte';
 	import SentimentAnalysis from '$lib/SentimentAnalysis.svelte';
@@ -14,6 +16,19 @@
 		a: 'hsl(300deg, 90%, 80%)',
 		b: 'hsl(300deg, 90%, 30%)'
 	};
+
+	const hard_code_current_color = () => {
+		const texts = document.getElementsByTagName('text');
+		for (const t of texts) {
+			t.style.fill = window.getComputedStyle(t).fill;
+		}
+
+		const lines = document.getElementsByTagName('line');
+		for (const l of lines) {
+			l.style.stroke = window.getComputedStyle(l).stroke;
+		}
+	};
+	onMount(hard_code_current_color);
 </script>
 
 <article class="flex-column font-7-8">
