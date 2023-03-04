@@ -3,16 +3,28 @@
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
 	import cloud from 'd3-cloud';
-	import { data } from '$lib/date_w_tokens.json';
+	import { data as raw } from '$lib/date_w_tokens.json';
 	import QuakeCard from '$lib/QuakeCard.svelte';
+
+	type Tweet = {
+		Date: Date;
+		Tokens: string[];
+	};
+
+	raw.forEach((d: any) => (d.Date = new Date(d.Date)));
+	// @ts-ignore
+	let data: Tweet[] = raw;
 
 	const blacklist =
 		/^((turkey)|(turki)|(syria)|(earthqua)|(http).*)|(that)|(those)|(than)|(from)|(this)|(will)|(with)|(have)|(been)|(were)|(they)|(them)|(their)|(your)|(for)|(the)|(and)|(you)|(who)|(are)|(her)|(our)|(has)|(amp)|(his)|(not)|(but)|(was)|(000)|(can)|(tur)|(tra)|(what)|(\[.*\])$/i;
-
-	const count_data = (data) => {
+	// Count mentions given end date.
+	const count_till = (end: Date) => {
 		let counts = new Map();
 		for (const d_w_t of data) {
-			for (const tk of d_w_t['Tokens']) {
+			if (d_w_t.Date > end) {
+				continue;
+			}
+			for (const tk of d_w_t.Tokens) {
 				counts.set(tk, (counts.get(tk) || 0) + 1);
 			}
 		}
@@ -24,10 +36,9 @@
 			aggregated.push({ text: tk, count: cnt });
 		}
 		aggregated.sort((a, b) => b.count - a.count);
-		return aggregated;
+		return aggregated.slice(0, 50);
 	};
 
-	// set the dimensions and margins of the graph
 	export let width = 350;
 	export let height = 250;
 	export let fill = '#69b3a2';
@@ -35,53 +46,49 @@
 	let svg_node: SVGSVGElement;
 	let card: QuakeCard;
 
+	const card_follow = (mouse_event: MouseEvent, d: any) =>
+		card.config({
+			visible: true,
+			title: d.text,
+			body: `${d.count} mensions`,
+			left: mouse_event.pageX,
+			top: mouse_event.pageY + 50
+		});
+
 	onMount(() => {
-		// append the svg object to the body of the page
-		const svg = d3.select(svg_node).append('g');
+		const svg = d3.select(svg_node);
 
-		const words = count_data(data).slice(0, 50);
-		const scale_word = 64 / words[0].count;
-
-		// Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
-		// Wordcloud features that are different from one word to the other must be here
-		const layout = cloud()
-			.size([width, height])
-			.words(words)
-			.padding(5) //space between words
-			.rotate(() => ~~(Math.random() * 2) * 90)
-			.fontSize((d) => d.count * scale_word) // font size of words
-			.on('end', draw);
-		layout.start();
-
-		function card_follow(mouse_event: any, d: any) {
-			card.config({
-				visible: true,
-				title: d.text,
-				body: `${d.count} mensions`,
-				left: mouse_event.pageX,
-				top: mouse_event.pageY + 50
-			});
-		}
-		// This function takes the output of 'layout' above and draw the words
-		// Wordcloud features that are THE SAME from one word to the other can be here
-		function draw(words) {
+		// Draw the word cloud.
+		const draw = (words: any) =>
 			svg
 				.append('g')
-				.attr('transform', `translate(${layout.size()[0] / 2},${layout.size()[1] / 2})`)
+				.attr('transform', `translate(${width / 2},${height / 2})`)
 				.selectAll('text')
 				.data(words)
 				.enter()
 				.append('text')
-				.style('font-size', (d) => d.size)
+				.style('font-size', (d: any) => d.size)
 				.style('fill', fill)
 				.attr('text-anchor', 'middle')
 				.style('font-family', 'Impact')
-				.attr('transform', (d) => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
-				.text((d) => d.text)
+				.attr('transform', (d: any) => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
+				.text((d: any) => d.text)
 				.on('mouseover', (_, d) => console.log(d))
 				.on('mousemove', card_follow)
 				.on('mouseout', () => card.config({ visible: false }));
-		}
+		// Constructs a new cloud layout instance.
+		const layout = (words: any) =>
+			cloud()
+				.size([width, height])
+				.words(words)
+				.padding(5)
+				.rotate(() => ~~(Math.random() * 2) * 90)
+				.fontSize((d: any) => (d.count * 64) / words[0].count)
+				.on('end', draw)
+				.start();
+
+		const last_day = new Date(2023, 1, 18);
+		layout(count_till(last_day));
 	});
 </script>
 
