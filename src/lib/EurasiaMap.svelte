@@ -168,7 +168,7 @@
 	});
 </script>
 
-<svg bind:this={svg_node} {height} {width}>
+<svg bind:this={svg_node} {height} {width} xmlns="http://www.w3.org/2000/svg">
 	<defs>
 		<linearGradient id="eurasia-map-yellow-red-linear-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
 			<stop offset="0%" style="stop-color: hsl({normalize_mag(min_mag)}turn 100% 50%)" />

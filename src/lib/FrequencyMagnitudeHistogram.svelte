@@ -76,4 +76,4 @@
 	});
 </script>
 
-<svg bind:this={svg_node} {width} {height} />
+<svg bind:this={svg_node} {width} {height} xmlns="http://www.w3.org/2000/svg" />

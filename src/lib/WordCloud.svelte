@@ -85,5 +85,5 @@
 	});
 </script>
 
-<svg bind:this={svg_node} {height} {width} />
+<svg bind:this={svg_node} {height} {width} xmlns="http://www.w3.org/2000/svg" />
 <QuakeCard bind:this={card} />
