@@ -27,6 +27,11 @@
 		for (const l of lines) {
 			l.style.stroke = window.getComputedStyle(l).stroke;
 		}
+
+		const svgs = document.getElementsByTagName('svg');
+		for (const s of svgs) {
+			s.style.background = window.getComputedStyle(s).background;
+		}
 	};
 	onMount(hard_code_current_color);
 </script>
