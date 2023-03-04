@@ -133,7 +133,35 @@
 				return datum.color;
 			})
 			.attr('stroke', '#000')
-			.attr('stroke-width', 1);
+			.attr('stroke-width', 1)
+			.on('mouseover', function (datum) {
+				g.append('circle')
+					.attr('cx', function () {
+						return datum.target.x.animVal.value + 5;
+					})
+					.attr('cy', function () {
+						return yScale(-datum.target.__data__.quartile[1]);
+					})
+					.attr('r', 15)
+					.style('fill', 'white');
+
+				g.append('text')
+					.attr('x', function () {
+						if ((-datum.target.__data__.quartile[1]).toString() == '0')
+							return datum.target.x.animVal.value + 3;
+						else return datum.target.x.animVal.value - 7;
+					})
+					.attr('y', function () {
+						return yScale(-datum.target.__data__.quartile[1]) + 3;
+					})
+					.text((-datum.target.__data__.quartile[1]).toString().substring(0, 5))
+					.style('font-size', '10px')
+					.style('fill', 'purple');
+			})
+			.on('mouseout', function () {
+				g.selectAll('text').style('opacity', 0);
+				g.selectAll('circle').style('opacity', 0);
+			});
 
 		// Now render all the horizontal lines at once - the whiskers and the median
 		const horizontalLineConfigs = [
