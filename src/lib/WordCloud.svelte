@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
 	import cloud from 'd3-cloud';
+	import { sliderBottom } from 'd3-simple-slider';
 	import { data as raw } from '$lib/date_w_tokens.json';
 	import QuakeCard from '$lib/QuakeCard.svelte';
 
@@ -16,7 +17,7 @@
 	let data: Tweet[] = raw;
 
 	const blacklist =
-		/^((turkey)|(turki)|(syria)|(earthqua)|(http).*)|(that)|(those)|(than)|(from)|(this)|(will)|(with)|(have)|(been)|(were)|(they)|(them)|(their)|(your)|(for)|(the)|(and)|(you)|(who)|(are)|(her)|(our)|(has)|(amp)|(his)|(not)|(but)|(was)|(000)|(can)|(tur)|(tra)|(what)|(\[.*\])$/i;
+		/^((turkey)|(turki)|(syria)|(earthqua)|(http).*)|(that)|(those)|(than)|(from)|(this)|(will)|(with)|(have)|(been)|(were)|(they)|(them)|(their)|(your)|(for)|(the)|(and)|(you)|(who)|(are)|(she)|(her)|(our)|(has)|(amp)|(his)|(not)|(but)|(was)|(000)|(can)|(tur)|(tra)|(what)|(\[.*\])$/i;
 	// Count mentions given end date.
 	const count_till = (end: Date) => {
 		let counts = new Map();
@@ -43,37 +44,56 @@
 	export let height = 250;
 	export let fill = '#69b3a2';
 
-	let svg_node: SVGSVGElement;
+	let g_node: SVGGElement;
+	let slider_node: SVGGElement;
 	let card: QuakeCard;
+	let end_day = 18;
+	let slider_opacity = 0;
 
-	const card_follow = (mouse_event: MouseEvent, d: any) =>
+	const card_follow = (mouse_event: MouseEvent) =>
 		card.config({
 			visible: true,
-			title: d.text,
-			body: `${d.count} mensions`,
 			left: mouse_event.pageX,
 			top: mouse_event.pageY + 50
 		});
-
+	const card_follow_word = (mouse_event: MouseEvent, d: any) => {
+		console.log(d);
+		card_follow(mouse_event);
+		card.config({
+			title: d.text,
+			body: `${d.count} mensions`
+		});
+	};
+	const card_follow_slider = (mouse_event: MouseEvent) => {
+		slider_opacity = 1;
+		card_follow(mouse_event);
+		card.config({
+			title: `Until Feb ${end_day}`,
+			fill: 'white',
+			body: 'Slide to choose time interval.'
+		});
+	};
 	onMount(() => {
-		const svg = d3.select(svg_node);
+		const g = d3.select(g_node);
+		const slider = d3
+			.select(slider_node)
+			.on('mouseover', card_follow_slider)
+			.on('mousemove', card_follow)
+			.on('mouseout', () => (slider_opacity = 0));
 
 		// Draw the word cloud.
 		const draw = (words: any) =>
-			svg
-				.append('g')
-				.attr('transform', `translate(${width / 2},${height / 2})`)
+			g
 				.selectAll('text')
 				.data(words)
-				.enter()
-				.append('text')
+				.join('text')
 				.style('font-size', (d: any) => d.size)
 				.style('fill', fill)
 				.attr('text-anchor', 'middle')
 				.style('font-family', 'Impact')
 				.attr('transform', (d: any) => `translate(${[d.x, d.y]})rotate(${d.rotate})`)
 				.text((d: any) => d.text)
-				.on('mouseover', (_, d) => console.log(d))
+				.on('mouseover', card_follow_word)
 				.on('mousemove', card_follow)
 				.on('mouseout', () => card.config({ visible: false }));
 		// Constructs a new cloud layout instance.
@@ -86,11 +106,36 @@
 				.fontSize((d: any) => (d.count * 64) / words[0].count)
 				.on('end', draw)
 				.start();
+		// Slider
+		//@ts-ignore
+		const make_slider = sliderBottom()
+			//@ts-ignore
+			.min(8)
+			.max(end_day)
+			.step(1)
+			.width(width / 2)
+			.displayValue(false)
+			.tickPadding(-8)
+			.value(end_day)
+			.on('onchange', (d: number) => {
+				end_day = d;
+				card.config({
+					title: `Until Feb ${end_day}`
+				});
+				layout(count_till(new Date(2023, 1, end_day)));
+			});
 
-		const last_day = new Date(2023, 1, 18);
+		const last_day = new Date(2023, 1, end_day);
+		slider.call(make_slider);
 		layout(count_till(last_day));
 	});
 </script>
 
-<svg bind:this={svg_node} {height} {width} xmlns="http://www.w3.org/2000/svg" />
+<svg {height} {width} xmlns="http://www.w3.org/2000/svg">
+	<g bind:this={g_node} style="transform: translate({width / 2}px, {height / 2}px);" />
+	<g
+		bind:this={slider_node}
+		style="transform: translate({width / 4}px, {height - 30}px); opacity: {slider_opacity}"
+	/>
+</svg>
 <QuakeCard bind:this={card} />
