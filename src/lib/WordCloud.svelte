@@ -61,7 +61,7 @@
 		card_follow(mouse_event);
 		card.config({
 			title: d.text,
-			body: `${d.count} mensions`
+			body: `${d.count} mentions`
 		});
 	};
 	const card_follow_slider = (mouse_event: MouseEvent) => {
