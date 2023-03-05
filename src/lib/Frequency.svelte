@@ -47,7 +47,46 @@
 
 		const chartGroup = svg.append('g').attr('transform', 'translate(40, 30)');
 
-		chartGroup.append('path').attr('d', line(data)).attr('fill', 'none').attr('stroke', stroke);
+		chartGroup
+			.append('path')
+			.attr('d', line(data))
+			.attr('fill', 'none')
+			.attr('stroke', stroke)
+			.on('mouseover', function () {
+				svg
+					.append('text')
+					.attr('id', '1')
+					.attr('x', x(parseDate(data[0].Date)) + 50)
+					.attr('y', y(Number(data[0].num)) + 20)
+					.text('Turkey–Syria earthquake occured')
+					.style('font-size', '10px')
+					.style('fill', 'purple');
+				svg
+					.append('text')
+					.attr('id', '2')
+					.attr('x', x(parseDate(data[3].Date)) + 50)
+					.attr('y', y(Number(data[3].num)) + 20)
+					.text('Twitter was shut down it Turkey')
+					.style('font-size', '10px')
+					.style('fill', 'purple');
+				svg
+					.append('circle')
+					.attr('cx', x(parseDate(data[0].Date)) + 40)
+					.attr('cy', y(Number(data[0].num)) + 30)
+					.attr('r', 5)
+					.style('fill', 'yellow');
+				svg
+					.append('circle')
+					.attr('cx', x(parseDate(data[3].Date)) + 40)
+					.attr('cy', y(Number(data[3].num)) + 30)
+					.attr('r', 5)
+					.style('fill', 'yellow');
+			})
+			.on('mouseout', function () {
+				svg.selectAll('circle').remove();
+				svg.selectAll("text[id='1']").remove();
+				svg.selectAll("text[id='2']").remove();
+			});
 
 		chartGroup
 			.append('g')
