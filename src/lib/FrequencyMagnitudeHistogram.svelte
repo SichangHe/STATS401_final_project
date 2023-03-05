@@ -3,6 +3,7 @@
 	import * as d3 from 'd3';
 	import { features } from '$lib/custom.geo.json';
 	import quakes from '$lib/earthquake.csv';
+	import QuakeCard from './QuakeCard.svelte';
 	const margin = { top: 10, right: 20, bottom: 30, left: 40 };
 	export let width = 350;
 	export let height = 250;
@@ -11,8 +12,28 @@
 	const heightWithMargin = height - margin.top - margin.bottom;
 
 	let svg_node;
+	let card : QuakeCard;
 
-	const x = d3.scaleLinear().domain([5, 10]).range([0, widthWithMargin]);
+	const card_follow = (mouse_event: MouseEvent) =>
+		card.config({
+			visible: true,
+			left: mouse_event.pageX + 50,
+			top: mouse_event.pageY
+	});
+
+	const card_follow_word = (mouse_event: MouseEvent, d: any) => {
+		// console.log(d);
+		card_follow(mouse_event);
+		card.config({
+			title: d.length,
+			body: `earthquakes between ${d[0].mag} and ${Math.round((parseFloat(d[0].mag) + 0.1) * 10) / 10}`
+		});
+	};
+
+	const x = d3.scaleLinear()
+		.domain([5, 10])
+		.range([0, widthWithMargin]);
+	
 	const histogram = d3
 		.histogram()
 		.value(function (d) {
@@ -23,17 +44,14 @@
 
 	const bins = histogram(quakes);
 
-	const y = d3.scaleLinear().range([heightWithMargin, 0]);
-
-	y.domain([
-		0,
-		d3.max(bins, function (d) {
-			return d.length;
-		})
-	]);
+	const y = d3.scaleLinear()
+		.domain([0,d3.max(bins, function (d) {return d.length;})
+		])
+		.range([heightWithMargin, 0]);
 
 	onMount(() => {
 		let svg = d3.select(svg_node);
+
 		svg
 			.append('g')
 			.attr(
@@ -63,25 +81,10 @@
 			.attr('height', function (d) {
 				return heightWithMargin - y(d.length);
 			})
-			.on('mouseover', function (d) {
-				svg
-					.append('circle')
-					.attr('cx', widthWithMargin + margin.left)
-					.attr('cy', margin.top + 12)
-
-					.attr('r', 15)
-					.style('fill', 'red');
-					let pos = d3.pointer(e, this);
-				svg.select('rect').attr('fill','red');
-				svg
-					.append('text')
-					.attr('x', 0 )
-					.attr('y', margin.top + 12)
-					.text(''+pos[0]);
-			})
-			.on('mouseout', function () {
-				svg.selectAll('circle').style('opacity', 0);
-				
+			.on('mouseover', card_follow_word)
+			.on('mousemove', card_follow)
+			.on('mouseout', () => {
+				card.config({ visible: false });
 			})
 			.style('fill', fill);
 		console.log(bins);
@@ -99,3 +102,4 @@
 </script>
 
 <svg bind:this={svg_node} {width} {height} xmlns="http://www.w3.org/2000/svg" />
+<QuakeCard bind:this={card} />
