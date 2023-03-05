@@ -79,7 +79,10 @@
 			.select(slider_node)
 			.on('mouseover', card_follow_slider)
 			.on('mousemove', card_follow)
-			.on('mouseout', () => (slider_opacity = 0));
+			.on('mouseout', () => {
+				slider_opacity = 0;
+				card.config({ visible: false });
+			});
 
 		// Draw the word cloud.
 		const draw = (words: any) =>
