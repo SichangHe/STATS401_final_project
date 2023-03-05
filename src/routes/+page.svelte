@@ -130,15 +130,10 @@
 
 <style>
 	article {
-		/* TODO: remove border when the layout is done. */
-		border-color: lightgray;
-		border-style: solid;
-		border-width: 2px;
-
 		background-color: hsl(45deg, 80%, 90%);
 		color: hsl(300deg, 100%, 15%);
 		font-family: 'PT Serif';
-		height: 29.7cm;
+		min-height: 29.7cm;
 		position: relative;
 		width: 21cm;
 	}
@@ -179,10 +174,8 @@
 	}
 
 	.authors {
-		bottom: 0;
 		font-size: 0.55rem;
-		position: absolute;
-		right: 0;
+        text-align: right;
 	}
 
 	.column-2 {
