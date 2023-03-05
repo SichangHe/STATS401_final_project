@@ -59,10 +59,32 @@
 			.attr('width', function (d) {
 				return Math.max(x(d.x1) - x(d.x0) - 1, 0);
 			})
+
 			.attr('height', function (d) {
 				return heightWithMargin - y(d.length);
 			})
+			.on('mouseover', function (d) {
+				svg
+					.append('circle')
+					.attr('cx', widthWithMargin + margin.left)
+					.attr('cy', margin.top + 12)
+
+					.attr('r', 15)
+					.style('fill', 'red');
+					let pos = d3.pointer(e, this);
+				svg.select('rect').attr('fill','red');
+				svg
+					.append('text')
+					.attr('x', 0 )
+					.attr('y', margin.top + 12)
+					.text(''+pos[0]);
+			})
+			.on('mouseout', function () {
+				svg.selectAll('circle').style('opacity', 0);
+				
+			})
 			.style('fill', fill);
+		console.log(bins);
 		svg
 			.append('text')
 			.attr('x', margin.left - 30)
