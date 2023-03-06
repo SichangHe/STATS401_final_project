@@ -14,7 +14,7 @@
 
 	const barWidth = 10;
 
-	const margin = { top: 20, right: 50, bottom: 20, left: 10 };
+	const margin = { top: 20, right: 80, bottom: 20, left: 10 };
 
 	const widthWithMargin = width - margin.left - margin.right;
 	const heightWithMargin = height - margin.top - margin.bottom;
@@ -68,16 +68,21 @@
 		const axisTopG = svg.append('g').attr('transform', 'translate(35,0)');
 
 		// Setup the group the box plot elements will render in
-		const g = svg.append('g').attr('transform', 'translate(20,5)');
+		const g = svg.append('g').attr('transform', 'translate(20,0)');
 
 		// Prepare the data for the box plots
 		const boxPlotData = [];
+		var i = 0;
 		for (const [key, groupCount] of Object.entries(groupCounts)) {
 			const record = {};
 			const localMin = d3.min(groupCount);
 			const localMax = d3.max(groupCount);
 
+			record['id'] = i;
+			i = i + 1;
 			record['key'] = key;
+			record['min'] = localMax;
+			record['max'] = localMin;
 			record['counts'] = groupCount;
 			record['quartile'] = boxQuartiles(groupCount);
 			record['whiskers'] = [localMin, localMax];
@@ -113,10 +118,11 @@
 
 		// Draw the boxes of the box plot, filled in white and on top of vertical lines
 		const rects = g
-			.selectAll('rect')
+			.selectAll('rect.group0')
 			.data(boxPlotData)
 			.enter()
 			.append('rect')
+			.attr('class', 'group0')
 			.attr('width', barWidth)
 			.attr('height', function (datum) {
 				const quartiles = datum.quartile;
@@ -133,35 +139,7 @@
 				return datum.color;
 			})
 			.attr('stroke', '#000')
-			.attr('stroke-width', 1)
-			.on('mouseover', function (datum) {
-				g.append('circle')
-					.attr('cx', function () {
-						return datum.target.x.animVal.value + 5;
-					})
-					.attr('cy', function () {
-						return yScale(-datum.target.__data__.quartile[1]);
-					})
-					.attr('r', 15)
-					.style('fill', 'white');
-
-				g.append('text')
-					.attr('x', function () {
-						if ((-datum.target.__data__.quartile[1]).toString() == '0')
-							return datum.target.x.animVal.value + 3;
-						else return datum.target.x.animVal.value - 7;
-					})
-					.attr('y', function () {
-						return yScale(-datum.target.__data__.quartile[1]) + 3;
-					})
-					.text((-datum.target.__data__.quartile[1]).toString().substring(0, 5))
-					.style('font-size', '10px')
-					.style('fill', 'purple');
-			})
-			.on('mouseout', function () {
-				g.selectAll('text').style('opacity', 0);
-				g.selectAll('circle').style('opacity', 0);
-			});
+			.attr('stroke-width', 1);
 
 		// Now render all the horizontal lines at once - the whiskers and the median
 		const horizontalLineConfigs = [
@@ -237,7 +215,244 @@
 		// Setup a series axis on the top
 		const axisTop = d3.axisTop(xScale);
 		axisTopG.append('g').call(axisTop);
+
+		// interaction
+		// interaction area
+		var on = 0;
+		const area = g
+			.selectAll('rect.group1')
+			.data(boxPlotData)
+			.enter()
+			.append('rect')
+			.attr('class', 'group1')
+			.attr('key', function (d) {
+				return d.key;
+			})
+			.attr('id', function (d) {
+				return d.id;
+			})
+			.attr('width', barWidth)
+			.attr('height', heightWithMargin)
+			.attr('x', function (datum) {
+				return xScale(datum.key) + 10;
+			})
+			.attr('y', 0)
+			.attr('fill', 'transparent')
+			.on('mouseover', function (d) {
+				const curbox = boxPlotData[d.target.id];
+				var array = checkNum();
+				// med
+				if (array[2] == 1) {
+					const rect = g
+						.insert('rect', 'area')
+						.attr('id', 'small')
+						.attr('x', function () {
+							return xScale(curbox.key) + 2;
+						})
+						.attr('y', function () {
+							return yScale(-curbox.quartile[1]) - 6;
+						})
+						.attr('height', 10)
+						.attr('width', 25)
+						.style('fill', 'white');
+
+					const med = g
+						.insert('text', 'area')
+						.attr('x', function () {
+							if ((-curbox.quartile[1]).toString() == '0') return xScale(curbox.key) + 13;
+							else return xScale(curbox.key) + 3;
+						})
+						.attr('y', function () {
+							return yScale(-curbox.quartile[1]) + 3;
+						})
+						.text(function () {
+							return (-curbox.quartile[1]).toString().substring(0, 5);
+						})
+						.style('font-size', '10px')
+						.style('fill', 'purple');
+				}
+				// q3
+				if (array[1] == 1) {
+					const rect = g
+						.insert('rect', 'area')
+						.attr('id', 'small')
+						.attr('x', function () {
+							return xScale(curbox.key) + 2;
+						})
+						.attr('y', function () {
+							return yScale(-curbox.quartile[0]) - 6;
+						})
+						.attr('height', 10)
+						.attr('width', 25)
+						.style('fill', 'white');
+
+					const q1 = g
+						.insert('text', 'area')
+						.attr('x', function () {
+							if ((-curbox.quartile[0]).toString() == '0') return xScale(curbox.key) + 13;
+							else return xScale(curbox.key) + 3;
+						})
+						.attr('y', function () {
+							return yScale(-curbox.quartile[0]) + 3;
+						})
+						.text(function () {
+							return (-curbox.quartile[0]).toString().substring(0, 5);
+						})
+						.style('font-size', '10px')
+						.style('fill', 'purple');
+				}
+				// q1
+				if (array[3] == 1) {
+					const rect = g
+						.insert('rect', 'area')
+						.attr('id', 'small')
+						.attr('x', function () {
+							return xScale(curbox.key) + 2;
+						})
+						.attr('y', function () {
+							return yScale(-curbox.quartile[2]) - 6;
+						})
+						.attr('height', 10)
+						.attr('width', 25)
+						.style('fill', 'white');
+
+					const q3 = g
+						.insert('text', 'area')
+						.attr('x', function () {
+							if ((-curbox.quartile[2]).toString() == '0') return xScale(curbox.key) + 13;
+							else return xScale(curbox.key) + 3;
+						})
+						.attr('y', function () {
+							return yScale(-curbox.quartile[2]) + 3;
+						})
+						.text(function () {
+							return (-curbox.quartile[2]).toString().substring(0, 5);
+						})
+						.style('font-size', '10px')
+						.style('fill', 'purple');
+				}
+				// max
+				if (array[0] == 1) {
+					const rect = g
+						.insert('rect', 'area')
+						.attr('id', 'small')
+						.attr('x', function () {
+							return xScale(curbox.key) + 2;
+						})
+						.attr('y', function () {
+							return yScale(-curbox.max) - 6;
+						})
+						.attr('height', 10)
+						.attr('width', 25)
+						.style('fill', 'white');
+
+					const max = g
+						.insert('text', 'area')
+						.attr('x', function () {
+							if ((-curbox.max).toString() == '0') return xScale(curbox.key) + 13;
+							else return xScale(curbox.key) + 3;
+						})
+						.attr('y', function () {
+							return yScale(-curbox.max) + 3;
+						})
+						.text(function () {
+							return (-curbox.max).toString().substring(0, 5);
+						})
+						.style('font-size', '10px')
+						.style('fill', 'purple');
+				}
+				// min
+				if (array[4] == 1) {
+					const rect = g
+						.insert('rect', 'area')
+						.attr('id', 'small')
+						.attr('x', function () {
+							return xScale(curbox.key) + 2;
+						})
+						.attr('y', function () {
+							return yScale(-curbox.min) - 6;
+						})
+						.attr('height', 10)
+						.attr('width', 25)
+						.style('fill', 'white');
+					const min = g
+						.insert('text', 'area')
+						.attr('x', function () {
+							if ((-curbox.min).toString() == '0') return xScale(curbox.key) + 13;
+							else return xScale(curbox.key) + 3;
+						})
+						.attr('y', function () {
+							return yScale(-curbox.min) + 3;
+						})
+						.text(function () {
+							return (-curbox.min).toString().substring(0, 5);
+						})
+						.style('font-size', '10px')
+						.style('fill', 'purple');
+				}
+			})
+			.on('mouseout', function (d) {
+				g.selectAll('text').remove();
+				g.selectAll("rect[id='small']").remove();
+			});
+
+		// check form functions
+		function checkNum() {
+			var array = new Array();
+			for (var i = 0; i < myform1.single.length; i++) {
+				if (myform1.single[i].checked == true) array[i] = 1;
+				else array[i] = 0;
+			}
+			return array;
+		}
 	});
 </script>
+
+<div class="form">
+	<form
+		name="myform1"
+		style="position:absolute;top:650px;left:740px;line-height:12.5px;font-size:5px"
+	>
+		<input
+			type="checkbox"
+			class="checkclass"
+			name="single"
+			id="type1"
+			style="margin-bottom:0px"
+		/>max
+		<br />
+		<input
+			type="checkbox"
+			class="checkclass"
+			name="single"
+			id="type2"
+			style="margin-bottom:0px"
+		/>Q3
+		<br />
+		<input
+			type="checkbox"
+			class="checkclass"
+			name="single"
+			id="type3"
+			style="margin-bottom:0px"
+		/>med
+		<br />
+		<input
+			type="checkbox"
+			class="checkclass"
+			name="single"
+			id="type4"
+			style="margin-bottom:0px"
+		/>Q1
+		<br />
+		<input
+			type="checkbox"
+			class="checkclass"
+			name="single"
+			id="type5"
+			style="margin-bottom:0px"
+		/>min
+	</form>
+</div>
 
 <svg bind:this={svg_node} {height} {width} xmlns="http://www.w3.org/2000/svg" />
