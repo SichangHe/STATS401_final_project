@@ -64,8 +64,8 @@
 				svg
 					.append('text')
 					.attr('id', '2')
-					.attr('x', x(parseDate(data[3].Date)) + 50)
-					.attr('y', y(Number(data[3].num)) + 20)
+					.attr('x', x(parseDate(data[2].Date)) + 50)
+					.attr('y', y(Number(data[2].num)) + 20)
 					.text('Twitter was shut down it Turkey')
 					.style('font-size', '10px')
 					.style('fill', 'purple');
@@ -77,8 +77,8 @@
 					.style('fill', 'yellow');
 				svg
 					.append('circle')
-					.attr('cx', x(parseDate(data[3].Date)) + 40)
-					.attr('cy', y(Number(data[3].num)) + 30)
+					.attr('cx', x(parseDate(data[2].Date)) + 40)
+					.attr('cy', y(Number(data[2].num)) + 30)
 					.attr('r', 5)
 					.style('fill', 'yellow');
 			})
