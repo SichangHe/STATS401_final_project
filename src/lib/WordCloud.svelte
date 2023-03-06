@@ -1,6 +1,7 @@
 <!-- TODO: make slider. -->
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 	import * as d3 from 'd3';
 	import cloud from 'd3-cloud';
 	import { sliderBottom } from 'd3-simple-slider';
@@ -73,7 +74,11 @@
 			body: 'Slide to choose time interval.'
 		});
 	};
-	onMount(() => {
+	onMount(async () => {
+		// Load Impact font.
+		const impact_font = new FontFace('Impact', `url(${base}/fonts/Impact.ttf)`);
+		document.fonts.add(impact_font);
+
 		const g = d3.select(g_node);
 		const slider = d3
 			.select(slider_node)
@@ -131,6 +136,7 @@
 		const last_day = new Date(2023, 1, end_day);
 		slider.call(make_slider);
 		layout(count_till(last_day));
+		await impact_font.load();
 	});
 </script>
 
@@ -142,10 +148,3 @@
 	/>
 </svg>
 <QuakeCard bind:this={card} />
-
-<style>
-	@font-face {
-		font-family: Impact;
-		src: url(fonts/Impact.ttf);
-	}
-</style>
