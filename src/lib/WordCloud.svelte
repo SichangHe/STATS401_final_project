@@ -142,3 +142,10 @@
 	/>
 </svg>
 <QuakeCard bind:this={card} />
+
+<style>
+	@font-face {
+		font-family: Impact;
+		src: url(fonts/Impact.ttf);
+	}
+</style>
