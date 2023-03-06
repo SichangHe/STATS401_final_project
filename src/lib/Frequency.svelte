@@ -60,27 +60,27 @@
 					.attr('y', y(Number(data[0].num)) + 20)
 					.text('Turkey–Syria earthquake occured')
 					.style('font-size', '10px')
-					.style('fill', 'purple');
+					.style('fill', 'hsl(300deg, 100%, 15%)');
 				svg
 					.append('text')
 					.attr('id', '2')
 					.attr('x', x(parseDate(data[2].Date)) + 50)
 					.attr('y', y(Number(data[2].num)) + 20)
-					.text('Twitter was shut down it Turkey')
+					.text('Twitter blocked in Turkey')
 					.style('font-size', '10px')
-					.style('fill', 'purple');
+					.style('fill', 'hsl(300deg, 100%, 15%)');
 				svg
 					.append('circle')
 					.attr('cx', x(parseDate(data[0].Date)) + 40)
 					.attr('cy', y(Number(data[0].num)) + 30)
 					.attr('r', 5)
-					.style('fill', 'yellow');
+					.style('fill', 'hsl(300deg, 90%, 40%)');
 				svg
 					.append('circle')
 					.attr('cx', x(parseDate(data[2].Date)) + 40)
 					.attr('cy', y(Number(data[2].num)) + 30)
 					.attr('r', 5)
-					.style('fill', 'yellow');
+					.style('fill', 'hsl(300deg, 90%, 40%)');
 			})
 			.on('mouseout', function () {
 				svg.selectAll('circle').remove();
