@@ -44,6 +44,17 @@
 
 	onMount(() => {
 		const svg = d3.select(svg_node).attr('height', height).attr('width', width);
+		svg;
+
+		const zoom = d3
+			.zoom()
+			.scaleExtent([1, 1.15])
+			.translateExtent([
+				[0, 0],
+				[width, height]
+			])
+			.on('zoom', (e) => svg.attr('transform', e.transform));
+		svg.call(zoom);
 
 		const chartGroup = svg.append('g').attr('transform', 'translate(40, 30)');
 

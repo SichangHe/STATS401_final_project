@@ -57,7 +57,7 @@
 	onMount(() => {
 		const zoom = d3
 			.zoom()
-			.scaleExtent([1, 5])
+			.scaleExtent([1, 1.15])
 			.translateExtent([
 				[0, 0],
 				[width, height]
