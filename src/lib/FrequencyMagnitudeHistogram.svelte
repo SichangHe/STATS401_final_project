@@ -3,7 +3,7 @@
 	import * as d3 from 'd3';
 	import { features } from '$lib/custom.geo.json';
 	import quakes from '$lib/earthquake.csv';
-	import QuakeCard from './QuakeCard.svelte';
+	import QuakeCard from '$lib/QuakeCard.svelte';
 	const margin = { top: 10, right: 20, bottom: 30, left: 40 };
 	export let width = 350;
 	export let height = 250;
@@ -12,28 +12,28 @@
 	const heightWithMargin = height - margin.top - margin.bottom;
 
 	let svg_node;
-	let card : QuakeCard;
+	let card: QuakeCard;
 
 	const card_follow = (mouse_event: MouseEvent) =>
 		card.config({
 			visible: true,
 			left: mouse_event.pageX + 50,
 			top: mouse_event.pageY
-	});
+		});
 
 	const card_follow_word = (mouse_event: MouseEvent, d: any) => {
 		// console.log(d);
 		card_follow(mouse_event);
 		card.config({
 			title: d.length,
-			body: `earthquakes between ${d[0].mag} and ${Math.round((parseFloat(d[0].mag) + 0.1) * 10) / 10}`
+			body: `earthquakes between ${d[0].mag} and ${
+				Math.round((parseFloat(d[0].mag) + 0.1) * 10) / 10
+			}`
 		});
 	};
 
-	const x = d3.scaleLinear()
-		.domain([5, 10])
-		.range([0, widthWithMargin]);
-	
+	const x = d3.scaleLinear().domain([5, 10]).range([0, widthWithMargin]);
+
 	const histogram = d3
 		.histogram()
 		.value(function (d) {
@@ -44,12 +44,25 @@
 
 	const bins = histogram(quakes);
 
-	const y = d3.scaleLinear()
-		.domain([0,d3.max(bins, function (d) {return d.length;})
+	const y = d3
+		.scaleLinear()
+		.domain([
+			0,
+			d3.max(bins, function (d) {
+				return d.length;
+			})
 		])
 		.range([heightWithMargin, 0]);
 
 	onMount(() => {
+		const zoom = d3
+			.zoom()
+			.scaleExtent([1, 5])
+			.translateExtent([
+				[0, 0],
+				[width, height]
+			])
+			.on('zoom', (e) => svg.attr('transform', e.transform));
 		let svg = d3.select(svg_node);
 
 		svg
@@ -98,6 +111,7 @@
 			.attr('x', widthWithMargin + margin.left - 50)
 			.attr('y', heightWithMargin + margin.top + 5)
 			.text('magnitude');
+		svg.call(zoom);
 	});
 </script>
 
